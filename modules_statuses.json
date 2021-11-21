@@ -1,0 +1,5 @@
+{
+    "ClientModule": true,
+    "ReportModule": true,
+    "TransactionModule": true
+}
