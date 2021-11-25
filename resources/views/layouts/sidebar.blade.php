@@ -85,10 +85,15 @@
                        @endif
                     </ul>
                 </li>
-                @endif
+                @endif 
                 @if(in_array('Can View Field Staff', auth()->user()->getUserPermisions()))
                 <li> <a class="waves-effect waves-dark" href="/reportmodule/field-staff" aria-expanded="false"><i class="ti-user"></i><span class="hide-menu">Field Staff</span></a></li>
                 @endif
+                <li> <a class="waves-effect waves-dark" href="/adminmodule/fuel-stations" aria-expanded="false"><i class="ti-spray"></i><span class="hide-menu">Fuel Stations</span></a></li>
+                
+                <li> <a class="waves-effect waves-dark" href="/adminmodule/get-towns" aria-expanded="false"><i class="ti-view-grid"></i><span class="hide-menu">Towns</span></a></li>
+                
+                <li> <a class="waves-effect waves-dark" href="/fuelstation/search-client" aria-expanded="false"><i class="ti-search"></i><span class="hide-menu">Search Client</span></a></li>
             </ul>
         </nav>
         <!-- End Sidebar navigation -->

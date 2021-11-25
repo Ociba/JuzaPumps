@@ -77,55 +77,32 @@ class TransactionModuleController extends Controller
         $total_of_client_payments =Payment::where('client_id',$client_id)->groupBy('client_id')->sum('amount_paid');
         return view('transactionmodule::receipt', compact('all_client_payments_details','total_of_client_payments'));
     }
+     /** 
+     * This function searches for client to pay debt
+    */
+    protected function searchClientToPayDebt(){
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
-    {
-        //
+        if(Client::where('number_plate', request()->number_plate)->doesntExist())
+        {
+            return Redirect()->back()->withInput()->withErrors('Number Plate doesnot exists, please check your spelling or it is not Registered');
+        }
+        $get_clients = Client::Where('number_plate', 'like', '%'. request()->number_plate. '%')
+        ->simplePaginate('10');
+    
+        return view('transactionmodule::clients',compact('get_clients'));
     }
+    /** 
+     * This function searches for client to pay debt
+    */
+    protected function searchTodaysTransaction(){
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('transactionmodule::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
-    {
-        return view('transactionmodule::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
-    {
-        //
+        if(Client::where('number_plate', request()->number_plate)->doesntExist())
+        {
+            return Redirect()->back()->withInput()->withErrors('Number Plate doesnot exists, please check your spelling or it is not Registered');
+        }
+        $get_all_todays_transaction = Client::Where('number_plate', 'like', '%'. request()->number_plate. '%')
+        ->simplePaginate('10');
+    
+        return view('transactionmodule::index',compact('get_all_todays_transaction'));
     }
 }

@@ -62,7 +62,7 @@
                                             <tr style="text-transform: uppercase;font-weight:bold;font-family: Times New Roman, Times, serif;">
                                                 <th>#</th>
                                                 <th>Name</th> 
-                                                <th>Email</th> 
+                                                <th>Category</th> 
                                                 <th>Photo</th> 
                                                 @if(in_array('Can View Registered Users Option', auth()->user()->getUserPermisions()))
                                                 <th>Option</th>
@@ -81,7 +81,7 @@
                                             @endphp
                                             <th scope="row">{{$i}}</th> 
                                                 <td>{{$user->name}}</td> 
-                                                <td>{{$user->email}}</td> 
+                                                <td>{{$user->category}}</td> 
                                                 <td><img style="width:50px; height:40px" src="{{ asset('user_photos/'.$user->profile_photo_path)}}"></td> 
                                                 @if(in_array('Can Delete User', auth()->user()->getUserPermisions()))
                                                 <td>

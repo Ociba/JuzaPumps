@@ -13,6 +13,7 @@ use DB;
 use Carbon\Carbon;
 use Modules\ClientModule\Entities\Client;
 use Modules\TransactionModule\Entities\Payment;
+use Modules\FuelStation\Entities\FuelStation;
 use App\Models\User;
 use Auth;
 
@@ -33,7 +34,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'telephone',
+        'category',
     ];
 
     /**
@@ -208,7 +209,7 @@ class User extends Authenticatable
      * This function gets sum expected amount as debts
     */
     public function totalDebts(){
-        return Client::where('clients.deleted_at',null)->sum('debt');
+        return FuelStation::where('fuel_stations.status','pending')->sum('debt');
     }
     /** 
      * This function gets sum of amount paid
@@ -221,5 +222,20 @@ class User extends Authenticatable
     */
     public function totalAmountNotPaid(){
         return $this->totalDebts()-$this->totalCurrentAmountPaid();
+    }
+    /** 
+     * This function gets float for partucular station
+    */
+    public function calculateFloat(){
+        //This function gets float Details
+        $initial_float =DB::table('initial_floats')->where('initial_floats.fuel_station_id',auth()->user()->id)->value('float');
+        $debts =FuelStation::where('fuel_stations.user_id',auth()->user()->id)->where('status','pending')->sum('debt');
+        return $actual_float =$initial_float -$debts;
+    }
+    public function sumPaidAmount(){
+        return $amount_paid =FuelStation::where('fuel_stations.user_id',auth()->user()->id)->where('status','paid')->sum('amount_paid');
+    }
+    public function actualFloat(){
+       return $this->calculateFloat() + $this->sumPaidAmount();
     }
 }

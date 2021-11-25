@@ -41,22 +41,7 @@
                     <div class="col-lg-4 col-xlg-3 col-md-5">
                         <div class="card">
                             <div class="user-bg"> <img width="100%" height="330" alt="user" src="{{ asset('client_photos/'.$more_info->profile_photo_path)}}"> </div>
-                            <div class="card-body">
-                                <!-- .row -->
-                                <div class="row text-center m-t-10">
-                                    <div class="col-md-12 border-end">
-                                        <strong>Status</strong>
-                                        @if($more_info->status == 'pending')
-                                        <p><span class="label label-warning">{{$more_info->status}}</span></p>
-                                        @elseif($more_info->status == 'overdue')
-                                        <p><span class="label label-danger">{{$more_info->status}}</span></p>
-                                        @else
-                                        <p><span class="label label-success">{{$more_info->status}}</span></p>
-                                        @endif
-                                    </div>
-                                </div>
-                                <hr>
-                            </div>
+                           
                         </div>
                     </div>
                     <!-- Column -->
@@ -111,9 +96,17 @@
                                         <br>
                                         <p class="text-muted">{{$more_info->stage_leader_contact}}</p>
                                     </div>
-                                    <div class="col-md-3 col-xs-6 border-end"> <strong>Days Left</strong>
+                                    <div class="col-md-3 col-xs-6 border-end"> <strong>Status</strong>
                                         <br>
-                                        <p class="text-muted">{{Carbon\Carbon::now()->addDays(30)->diffForHumans($more_info->created_at);}}</p>
+                                        <p class="text-muted">
+                                        @if($more_info->status == 'pending')
+                                        <p><span class="label label-warning">{{$more_info->status}}</span></p>
+                                        @elseif($more_info->status == 'overdue')
+                                        <p><span class="label label-danger">{{$more_info->status}}</span></p>
+                                        @else
+                                        <p><span class="label label-success">{{$more_info->status}}</span></p>
+                                        @endif
+                                        </p>
                                     </div>
                                     <div class="col-md-3 col-xs-6"> <strong>Registered On</strong>
                                         <br>
@@ -123,28 +116,6 @@
                             </div>
                            
                         </div>
-                         <!-- Row -->
-                         <div class="row">
-                            <div class="col-md-6">
-                                <div class="card text-center">
-                                    <div class="card-body">
-                                        <h4 class="card-title">Debt (Amount To Be Paid)</h4>
-                                        <p class="card-text">{{ number_format($more_info->debt)}} /=</p>
-                                        <p>{{date('d F Y', strtotime($more_info->created_at))}}</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="card text-center">
-                                    <div class="card-body">
-                                        <h4 class="card-title">Amount Paid</h4>
-                                        <p>{{ number_format($total_of_client_payments)}} /=</p>
-                                        <p>Balance : <span style="color:red; font-weight:900px;">{{ number_format($more_info->debt-$total_of_client_payments) }} /=</span></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                   <!-- End Row -->
                     </div>
                     @endforeach
                 </div>

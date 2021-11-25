@@ -145,8 +145,8 @@
                                             <!--/span-->
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="form-label">Amount (Debt)</label>
-                                                    <input type="text" id="debt"  name="debt" class="form-control form-control-danger" placeholder="" required>
+                                                    <label class="form-label">Pin (5 digits)</label>
+                                                    <input type="text" id="pin"  name="pin" class="form-control form-control-danger" placeholder="" required>
                                                     </div>
                                             </div>
                                             <!--/span-->

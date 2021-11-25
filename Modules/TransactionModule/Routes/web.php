@@ -16,4 +16,6 @@ Route::group(['prefix'=>'transactionmodule', 'middleware'=>['auth']],function(){
     Route::get('/pay-debt/{client_id}','TransactionModuleController@payDebtForm')->name('Pay Debt Form');
     Route::get('/save-payment/{client_id}','TransactionModuleController@payDebt');
     Route::get('/payment-details-receipt/{payment_id}','TransactionModuleController@getReceipt')->name('Payment Details');
+    Route::get('/search-client-to-pay-debt','TransactionModuleController@searchClientToPayDebt')->name('Searched Client');
+    Route::get('/search-todays-transaction','TransactionModuleController@searchTodaysTransaction')->name('Searched Client');
 });

@@ -22,4 +22,7 @@ Route::group(['prefix'=>'clientmodule', 'middleware'=>['auth']],function(){
     Route::get('/trash/{client_id}','ClientModuleController@softDeleteClient');
     Route::get('/remove-from-trash/{client_id}','ClientModuleController@parmanetlyDeleteClient');
     Route::get('/update-client-info/{client_id}','ClientModuleController@update');
+    Route::get('/search-client','ClientModuleController@searchClient')->name('Searched Client');
+    Route::get('/search-todays-client','ClientModuleController@searchTodaysClient')->name('Searched Client');
+    Route::get('/search-trashed-client','ClientModuleController@searchTrashedClient')->name('Searched Client');
 });

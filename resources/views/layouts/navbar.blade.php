@@ -257,7 +257,7 @@
                     <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img style="border-radius:50%; width:40px; height:40px;" src="{{asset('user_photos/'.auth()->user()->getLoggedInUserLogo())}}" alt="user" class=""> <span class="hidden-md-down text-white">{{auth()->user()->name}} &nbsp;<i class="fa fa-angle-down"></i></span> </a>
                     <div class="dropdown-menu dropdown-menu-end animated flipInY">
                         <!-- text-->
-                        <a href="/profile" class="dropdown-item"><i class="ti-user"></i> My Profile</a>
+                        {{--<a href="/profile" class="dropdown-item"><i class="ti-user"></i> My Profile</a>--}}
                         <!-- text-->
                         <div class="dropdown-divider"></div>
                         <!-- text-->

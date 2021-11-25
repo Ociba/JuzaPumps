@@ -27,7 +27,7 @@ class CreateClientsTable extends Migration
             $table->string('stage_name');
             $table->string('stage_leader');
             $table->string('stage_leader_contact');
-            $table->string('debt');
+            $table->string('pin');
             $table->string('amount_paid')->nullable();
             $table->string('date_paid')->nullable();
             $table->string('days');

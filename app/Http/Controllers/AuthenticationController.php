@@ -33,7 +33,7 @@ class AuthenticationController extends Controller
         $user_photo->move('user_photos/',$user_photo_original_name);
 
         $user_obj = new User;
-        $user_obj->email       = request()->email;
+        $user_obj->category       = request()->category;
         $user_obj->name        = request()->name;
         $user_obj->profile_photo_path =$user_photo_original_name;
         $user_obj->password    = Hash::make(request()->password);
@@ -47,12 +47,10 @@ class AuthenticationController extends Controller
     protected function validateRegisterUser(){
         if(empty(request()->name)){
             return redirect()->back()->withErrors('Enter name to continue');
-        }elseif(empty(request()->email)){
-            return redirect()->back()->withErrors('Enter Email to continue');
+        }elseif(empty(request()->category)){
+            return redirect()->back()->withErrors('Choose Category to continue');
         }elseif(empty(request()->profile_photo_path)){
             return redirect()->back()->withErrors('Enter Photo to continue');
-        }elseif(User::where('email',request()->email)->exists()){
-            return redirect()->back()->withErrors('This email is already taken');
         }else{
             if(request()->password == request()->password_confirmation){
                 return $this->registerUser();

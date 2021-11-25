@@ -41,19 +41,21 @@
                             <div class="card-body">
                                 <div class="card-title">
                                 <div class="row">
-                                <div class="col-lg-4">
-                                   A table showing {{request()->route()->getName()}}
+                                <div class="col-lg-6">
+                                   A table showing {{request()->route()->getName()}}<br>
                                    <span style="color:blue;"> Total Amount Collected Today : {{ number_format($amount_paid_today)}} /=</span>
                                 </div>
-                                <div class="col-lg-4 mb-2">
+                                <div class="col-lg-2 mb-2">
                                 </div>
                                 <div class=" col-lg-4">
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-info text-white" type="button">Search</button>
+                                   <form action="/reportmodule/search-todays-revenue" method="get">
+                                        <div class="input-group mb-3">
+                                                <input type="text" class="form-control" name="number_plate" placeholder="Search Number Plate" aria-label="" aria-describedby="basic-addon1">
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-info btn-lg text-white" type="submit">Search</button>
+                                                </div>
                                         </div>
-                                    </div>
+                                    </form>
                                 </div>
                                 </div>
                                 </div>

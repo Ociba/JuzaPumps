@@ -33,7 +33,7 @@
 			<!-- /.title -->
 			<!-- /.frm-title -->
 			<div class="frm-input">
-                <label for="exampleInputEmail1">Email address</label>
+                <label for="exampleInputEmail1">Enter Your Name</label>
                 <input id="email" type="email" placeholder="Username" class="frm-inp" name="email" :value="old('email')" required autofocus><i class="fa fa-use frm-ico"></i>
             </div>
 			<!-- /.frm-input -->

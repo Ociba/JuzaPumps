@@ -70,7 +70,9 @@ class ClientModuleController extends Controller
      * This function creates clients information
     */
     private function createClientsInformation(){
-        
+        $now = Carbon::now();
+        $days_from_now = $now->addDays(30);
+
         $client_photo = request()->profile_photo_path;
         $client_photo_original_name = $client_photo->getClientOriginalName();
         $client_photo->move('client_photos/',$client_photo_original_name);
@@ -84,11 +86,12 @@ class ClientModuleController extends Controller
         $client_obj ->telephone               =request()->telephone;
         $client_obj ->number_plate            =request()->number_plate;
         $client_obj ->id_number               =request()->id_number;
-        $client_obj ->stage_name              =request()->stage_leader;
-        $client_obj ->stage_leader            =request()->region_id;
+        $client_obj ->stage_name              =request()->stage_name;
+        $client_obj ->stage_leader            =request()->stage_leader;
         $client_obj ->stage_leader_contact    =request()->stage_leader_contact;
-        $client_obj ->debt                    =request()->debt;
+        $client_obj ->pin                     =request()->pin;
         $client_obj ->leader                  =request()->leader;
+        $client_obj ->days                    =$days_from_now;
         $client_obj ->profile_photo_path      =$client_photo_original_name;
         $client_obj ->user_id                 =Auth::user()->id;
         $client_obj ->save();
@@ -107,6 +110,8 @@ class ClientModuleController extends Controller
             return redirect()->back()->withErrors('This Number Plate is already taken');
         }elseif(Client::where('id_number',request()->id_number)->exists()){
             return redirect()->back()->withErrors('This ID Number is already taken');
+        }elseif(Client::where('pin',request()->pin)->exists()){
+            return redirect()->back()->withErrors('This Pin Number is already taken');
         }else{
             return $this->createClientsInformation();
         }
@@ -209,5 +214,47 @@ class ClientModuleController extends Controller
         Client::where('id',$client_id)->update($request->validated());
         //return to the previous route
         return redirect()->back()->with('msg','operation successful');
+    }
+    /** 
+     * This function searches for client in clients table
+    */
+    protected function searchClient(){
+
+        if(Client::where('number_plate', request()->number_plate)->doesntExist())
+        {
+            return Redirect()->back()->withInput()->withErrors('Number Plate doesnot exists, please check your spelling or it is not Registered');
+        }
+        $get_all_riders = Client::Where('number_plate', 'like', '%'. request()->number_plate. '%')
+        ->simplePaginate('10');
+    
+        return view('clientmodule::index',compact('get_all_riders'));
+    }
+     /** 
+     * This function searches todays registered client
+    */
+    protected function searchTodaysClient(){
+
+        if(Client::where('number_plate', request()->number_plate)->doesntExist())
+        {
+            return Redirect()->back()->withInput()->withErrors('Number Plate doesnot exists, please check your spelling or it is not Registered');
+        }
+        $get_todays_riders = Client::Where('number_plate', 'like', '%'. request()->number_plate. '%')
+        ->simplePaginate('10');
+    
+        return view('clientmodule::today_clients',compact('get_todays_riders'));
+    }
+      /** 
+     * This function searches for trashed client
+    */
+    protected function searchTrashedClient(){
+
+        if(Client::where('number_plate', request()->number_plate)->doesntExist())
+        {
+            return Redirect()->back()->withInput()->withErrors('Number Plate doesnot exists, please check your spelling or it is not Registered');
+        }
+        $trashed_client = Client::Where('number_plate', 'like', '%'. request()->number_plate. '%')
+        ->simplePaginate('10');
+    
+        return view('clientmodule::trashed_client',compact('trashed_client'));
     }
 }

@@ -58,8 +58,15 @@
                                         <div class="row">
                                              <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label">Email</label>
-                                                    <input type="email" id="email" class="form-control form-control-danger" name="email" :value="old('email')" required>
+                                                    <label class="form-label">Choose the Category of the User</label>
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" id="customRadio11" name="category" value="fuel_station" class="form-check-input" >
+                                                        <label class="form-check-label" for="customRadio11">Fuel Station</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" id="customRadio22" name="category" value="staff" class="form-check-input">
+                                                        <label class="form-check-label" for="customRadio22">Field Staff</label>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <!--/span-->

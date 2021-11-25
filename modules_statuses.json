@@ -1,5 +1,7 @@
 {
     "ClientModule": true,
     "ReportModule": true,
-    "TransactionModule": true
+    "TransactionModule": true,
+    "FuelStation": true,
+    "AdminModule": true
 }

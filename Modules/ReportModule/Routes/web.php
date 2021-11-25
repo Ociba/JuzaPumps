@@ -17,4 +17,8 @@ Route::group(['prefix'=>'reportmodule', 'middleware'=>['auth']],function(){
     Route::get('/overdue','ReportModuleController@getOverdueClients')->name('Overdue Debts');
     Route::get('/cleared-debts','ReportModuleController@getClearedClients')->name('Cleared Debts');
     Route::get('/field-staff','ReportModuleController@getFieldStaff')->name('Field Staff');
+    Route::get('/search-todays-revenue','ReportModuleController@searchTodaysRevenue')->name('Searched Client');
+    Route::get('/search-all-revenue','ReportModuleController@SearchAllRevenue')->name('Searched Client');
+    Route::get('/search-pending-debts','ReportModuleController@searchPendingClient')->name('Searched Client');
+    Route::get('/search-overdue-debts','ReportModuleController@searchOverdueClient')->name('Searched Client');
 });

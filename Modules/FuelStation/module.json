@@ -1,0 +1,13 @@
+{
+    "name": "FuelStation",
+    "alias": "fuelstation",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\FuelStation\\Providers\\FuelStationServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

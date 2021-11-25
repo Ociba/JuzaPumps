@@ -19,8 +19,10 @@ class DashboardController extends Controller
         ->select('clients.*','towns.town')->get();
         if(in_array('Can view Dashboard', auth()->user()->getUserPermisions())){
        return view('admin.dashboard',compact('get_users_town'));
-        }else{
+        }elseif(in_array('Can view Client', auth()->user()->getUserPermisions())){
             return redirect('/clientmodule/');
+        }else{
+            return redirect('/fuelstation/search-client/');
         }
     }
 }
