@@ -63,7 +63,7 @@
                                         <thead>
                                             <tr style="text-transform: uppercase;font-weight:bold;font-family: Times New Roman, Times, serif;">
                                                 <th>#</th>
-                                                <th>Name</th>  
+                                                <th>Name</th> 
                                                 <th>Option</th>
                                             </tr>
                                         </thead>

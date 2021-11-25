@@ -61,16 +61,14 @@
                                         <thead>
                                             <tr style="text-transform: uppercase;font-weight:bold;font-family: Times New Roman, Times, serif;">
                                                 <th>#</th>
-                                                <th>First Name</th> 
-                                                <th>Other Names</th> 
-                                                <th>Telephone</th> 
-                                                <th>Number Plate</th> 
-                                                <th>Stage</th> 
+                                                <th>Name</th> 
+                                                <th>Email</th>
+                                                <th>Created at</th>
                                                 <th>Option</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                           @foreach($get_field_staff as $i =>$riders)
+                                           @foreach($get_field_staff as $i =>$user)
                                             <tr>
                                             @php
                                                 if( $get_field_staff->currentPage() == 1){
@@ -80,13 +78,11 @@
                                                 }
                                             @endphp
                                             <th scope="row">{{$i}}</th> 
-                                                <td>{{$riders->other_names}}</td> 
-                                                <td>{{$riders->first_name}}</td> 
-                                                <td>{{$riders->telephone}}</td> 
-                                                <td>{{$riders->number_plate}}</td> 
-                                                <td>{{$riders->stage_name}}</td> 
+                                                <td>{{$user->name}}</td> 
+                                                <td>{{$user->email}}</td> 
+                                                <td>{{$user->created_at}}</td> 
                                                 <td>
-                                                    <a href="/clientmodule/view-more/{{$riders->id}}" class="btn btn-info btn-sm waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="View More Information">View</a>
+                                                    <a href="/reportmodule/delete/{{$user->id}}" class="btn btn-danger btn-sm waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="Delete Field Staff Permanently">Delete</a>
                                                 </td>
                                             </tr>
                                             @endforeach

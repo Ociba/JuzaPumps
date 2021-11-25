@@ -8,9 +8,9 @@
                 <!-- Logo icon --><b>
                     <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                     <!-- Dark Logo icon -->
-                    <img style="border-radius:50%; width:60px; height:60px;" src="{{asset('admin/dist/images/logo/images.jpeg')}}" alt="homepage" class="dark-logo" />
+                    <img style="border-radius:50%; width:60px; height:60px;" src="{{asset('admin/dist/images/logo/logo.png')}}" alt="homepage" class="dark-logo" />
                     <!-- Light Logo icon -->
-                    <img style="border-radius:50%; width:60px; height:60px;" src="{{asset('admin/dist/images/logo/images.jpeg')}}" alt="homepage" class="light-logo" />
+                    <img style="border-radius:50%; width:60px; height:60px;" src="{{asset('admin/dist/images/logo/logo.png')}}" alt="homepage" class="light-logo" />
                 </b>
                 <!--End Logo icon -->
                 <span class="hidden-xs"><span class="font-bold">JuzaPumps</span></span>

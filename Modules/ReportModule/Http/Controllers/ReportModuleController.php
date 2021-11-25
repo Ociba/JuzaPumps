@@ -9,6 +9,7 @@ use DB;
 use Carbon\Carbon;
 use Modules\TransactionModule\Entities\Payment;
 use Modules\ClientModule\Entities\Client;
+use App\Models\User;
 
 class ReportModuleController extends Controller
 {
@@ -87,10 +88,15 @@ class ReportModuleController extends Controller
    * This function gets clients who are field staff
   */
   protected function getFieldStaff(){
-    $get_field_staff =DB::table('clients')->join('users','clients.user_id','users.id')
-    ->join('regions','clients.region_id','regions.id')
-    ->where('clients.leader','leader')->simplePaginate(10);
+    $get_field_staff =DB::table('users')->where('category','staff')->simplePaginate(10);
     return view('reportmodule::field_staff',compact('get_field_staff')); 
+  }
+    /** 
+     * This function deletes fuelstation
+    */
+    protected function deleteFieldStaff($user_id){
+      User::where('id',$user_id)->delete();
+      return redirect()->back()->with('msg','Operation Successful');
   }
    /** 
      * This function searches for client to pay debt

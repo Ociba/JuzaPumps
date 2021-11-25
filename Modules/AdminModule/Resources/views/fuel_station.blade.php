@@ -82,6 +82,7 @@
                                                 <td>{{$station->name}}</td> 
                                                 <td>{{$station->email}}</td> 
                                                 <td>
+                                                    <a href="/adminmodule/deposit-money/{{$station->id}}" class="btn btn-info btn-sm mb-1 waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="Deposit Fuel Station Money">Deposit Money</a>
                                                     <a href="/adminmodule/delete/{{$station->id}}" class="btn btn-danger btn-sm mb-1 waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="Delete Fuel Station Permanently">Delete</a>
                                                    
                                                 </td>

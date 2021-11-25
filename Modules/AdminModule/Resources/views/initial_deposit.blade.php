@@ -63,37 +63,25 @@
                                         <thead>
                                             <tr style="text-transform: uppercase;font-weight:bold;font-family: Times New Roman, Times, serif;">
                                                 <th>#</th>
-                                                <th>First Name</th> 
-                                                <th>Other Names</th> 
-                                                <th>Telephone</th> 
-                                                <th>Number Plate</th> 
-                                                <th>Stage</th> 
-                                                <th>Stage Leader</th>
-                                                <th>Stage Leader Contact</th>
-                                                {{--<th>Option</th>--}}
+                                                <th>Name</th> 
+                                                <th>Float</th> 
+                                                <th>Created at</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                           @foreach($view_clients_towns as $i =>$riders)
+                                           @foreach($get_all_initial_deposits_per_station as $i =>$station)
                                             <tr>
                                             @php
-                                                if( $view_clients_towns->currentPage() == 1){
+                                                if( $get_all_initial_deposits_per_station->currentPage() == 1){
                                                     $i = $i+1;
                                                 }else{
-                                                    $i = ($i+1) + 10*($view_clients_towns->currentPage()-1);
+                                                    $i = ($i+1) + 10*($get_all_initial_deposits_per_station->currentPage()-1);
                                                 }
                                             @endphp
                                             <th scope="row">{{$i}}</th> 
-                                                <td>{{$riders->other_names}}</td> 
-                                                <td>{{$riders->first_name}}</td> 
-                                                <td>{{$riders->telephone}}</td> 
-                                                <td>{{$riders->number_plate}}</td> 
-                                                <td>{{$riders->stage_name}}</td> 
-                                                <td>{{$riders->stage_leader}}</td> 
-                                                <td>{{$riders->stage_leader_contact}}</td> 
-                                                {{--<td>
-                                                    <a href="/adminmodule/view-more/{{$riders->id}}" class="btn btn-info btn-sm mb-1 waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="View More Information">View</a>
-                                                </td>--}}
+                                                <td>{{$station->name}}</td> 
+                                                <td>{{number_format($station->float)}} /=</td> 
+                                                <td>{{$station->created_at}}</td>
                                             </tr>
                                             @endforeach
                                         </tbody>
@@ -101,7 +89,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="text-end ml-2">
-                                        {{$view_clients_towns->links()}}
+                                        {{$get_all_initial_deposits_per_station->links()}}
                                     </div>
                                 </div>
                             </div>

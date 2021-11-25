@@ -17,6 +17,7 @@ class CreateInitialFloatsTable extends Migration
             $table->id();
             $table->foreignId('fuel_station_id');
             $table->string('float');
+            $table->foreignId('user_id');
             $table->timestamps();
         });
     }

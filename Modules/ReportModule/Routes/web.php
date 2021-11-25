@@ -21,4 +21,5 @@ Route::group(['prefix'=>'reportmodule', 'middleware'=>['auth']],function(){
     Route::get('/search-all-revenue','ReportModuleController@SearchAllRevenue')->name('Searched Client');
     Route::get('/search-pending-debts','ReportModuleController@searchPendingClient')->name('Searched Client');
     Route::get('/search-overdue-debts','ReportModuleController@searchOverdueClient')->name('Searched Client');
+    Route::get('/delete/{user_id}','ReportModuleController@deleteFieldStaff');
 });

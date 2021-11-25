@@ -5,7 +5,9 @@ namespace Modules\AdminModule\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\AdminModule\Entities\InitialFloat;
 use DB;
+use Auth;
 
 class AdminModuleController extends Controller
 {
@@ -24,6 +26,32 @@ class AdminModuleController extends Controller
         $get_fuel_stations =DB::table('users')->where('category','fuel_station')->simplePaginate(10);
         return view('adminmodule::fuel_station', compact('get_fuel_stations'));
     }
+    /** 
+     * This function gets form for depositing money to petrol station
+    */
+    protected function depositFloatMoneyForm($user_id){
+        $deposit_money=InitialFloat::where('id',$user_id)->get();
+        return view('adminmodule::deposit_fuelstation_money_form', compact('deposit_money'));
+    }
+    /** 
+     * This function gets all initial deposits per station
+    */
+    protected function initialDeposits(){
+        $get_all_initial_deposits_per_station =InitialFloat::join('users','initial_floats.fuel_station_id','users.id')
+        ->simplePaginate(10);
+        return view('adminmodule::initial_deposit', compact('get_all_initial_deposits_per_station'));
+    }
+  /** 
+   * This function deposits money to the petrol station
+  */
+  protected function depositMoney(){
+      $initial_deposit =new InitialFloat;
+      $initial_deposit->user_id         =Auth::user()->id;
+      $initial_deposit->float           =request()->float;
+      $initial_deposit->fuel_station_id =request()->fuel_station_id;
+      $initial_deposit->save();
+      return redirect()->back()->with('msg','Operation Successfull');
+  }
     /** 
      * This function deletes fuelstation
     */
@@ -50,6 +78,19 @@ class AdminModuleController extends Controller
         ->where('town_id',$town_id)
         ->simplePaginate(10);
         return view('adminmodule::town_clients', compact('view_clients_towns'));
+    }
+    /** 
+     * This function gets more information about client for admin
+    */
+    protected function moreOnClient($client_id){
+        $get_client_information =DB::table('clients')->join('users','clients.user_id','users.id')
+        ->join('regions','clients.region_id','regions.id')
+        ->join('towns','clients.town_id','towns.id')
+        ->join('fuel_stations','clients.fuel_station_id','fuel_stations.id')
+        ->where('clients.deleted_at',null)
+        ->where('client.id',$client_id)
+        ->select('clients.*','regions.region','towns.town')->get();
+        return view('adminmodule::more_on_clients', compact('get_client_information'));
     }
     /**
      * Show the form for creating a new resource.
