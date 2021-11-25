@@ -34,14 +34,9 @@
                  @if(in_array('Can view Transactions', auth()->user()->getUserPermisions()))
                  <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-book"></i><span class="hide-menu"> Transactions</span></a>
                     <ul aria-expanded="false" class="collapse">
-                         @if(in_array('Can view Pay Debt', auth()->user()->getUserPermisions()))
-                         <li> <a class="waves-effect waves-dark" href="/transactionmodule/pay-debt"><span class="hide-menu"> Pay Debt</span></a>
-                        </li>
-                        @endif
-                        @if(in_array('Can view Todays Transactions', auth()->user()->getUserPermisions()))
-                        <li> <a class="waves-effect waves-dark" href="/transactionmodule/todays-transaction"><span class="hide-menu"> Todays Transactions</span></a>
-                        </li>
-                        @endif
+                        <li> <a class="waves-effect waves-dark" href="/adminmodule/get-todays-debt"><span class="hide-menu"> Todays Debts</span></a></li>
+                        <li> <a class="waves-effect waves-dark" href="/adminmodule/get-todays-payments"><span class="hide-menu"> Todays Payments</span></a></li>
+                        <li> <a class="waves-effect waves-dark" href="/adminmodule/all-transactons"><span class="hide-menu"> All Transactions</span></a></li>
                      </ul>
                 </li>
                 @endif

@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Modules\AdminModule\Entities\InitialFloat;
 use DB;
 use Auth;
+use Carbon\Carbon;
 
 class AdminModuleController extends Controller
 {
@@ -96,9 +97,32 @@ class AdminModuleController extends Controller
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function create()
+    protected function todaysDebts()
     {
-        return view('adminmodule::create');
+        $get_all_todays_debts=DB::table('fuel_stations')->join('clients','fuel_stations.client_id','clients.id')
+        ->join('users','fuel_stations.user_id','users.id')
+        ->where('fuel_stations.status','pending')
+        ->where('fuel_stations.created_at','>=',Carbon::today())
+        ->select('clients.*','users.name','fuel_stations.*')->simplePaginate(10);
+        return view('adminmodule::todays_debts',compact('get_all_todays_debts'));
+    }
+    protected function todaysPayments()
+    {
+        $get_all_todays_payments=DB::table('fuel_stations')->join('clients','fuel_stations.client_id','clients.id')
+        ->join('users','fuel_stations.user_id','users.id')
+        ->where('fuel_stations.status','paid')
+        ->where('fuel_stations.created_at','>=',Carbon::today())
+        ->select('clients.*','users.name','fuel_stations.*')->simplePaginate(10);
+        return view('adminmodule::todays_payments',compact('get_all_todays_payments'));
+    }
+    protected function allTransactions()
+    {
+        $all_transactions=DB::table('fuel_stations')->join('clients','fuel_stations.client_id','clients.id')
+        ->join('users','fuel_stations.user_id','users.id')
+        ->where('fuel_stations.status','paid')
+        ->orwhere('fuel_stations.status','pending')
+        ->select('clients.*','users.name','fuel_stations.*')->simplePaginate(10);
+        return view('adminmodule::all_transactions',compact('all_transactions'));
     }
 
     /**

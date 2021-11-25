@@ -21,5 +21,8 @@ Route::prefix('adminmodule')->group(function() {
     Route::get('/deposit-money/{user_id}','AdminModuleController@depositFloatMoneyForm')->name('depositMoney To Fuel Station');
     Route::get('/deposit/{user_id}','AdminModuleController@depositMoney');
     Route::get('/initial-deposit','AdminModuleController@initialDeposits')->name('initial Deposits Per Station');
+    Route::get('/get-todays-debt','AdminModuleController@todaysDebts')->name('Todays Debts');
+    Route::get('/get-todays-payments','AdminModuleController@todaysPayments')->name('Todays Payments');
+    Route::get('/all-transactons','AdminModuleController@allTransactions')->name('allTransactions');
     
 });
