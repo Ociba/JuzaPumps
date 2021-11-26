@@ -21,7 +21,8 @@ class AuthenticationController extends Controller
      * This function gets form to get form for registering users
     */
     protected function registerUserForm(){
-        return view('admin.register_user');
+        $get_town =DB::table('towns')->select('id','town')->get();
+        return view('admin.register_user', compact('get_town'));
     }
     /**
      * This function registers users
@@ -34,7 +35,8 @@ class AuthenticationController extends Controller
 
         $user_obj = new User;
         $user_obj->category       = request()->category;
-        $user_obj->name        = request()->name;
+        $user_obj->name           = request()->name;
+        $user_obj->town_id        = request()->town_id;
         $user_obj->profile_photo_path =$user_photo_original_name;
         $user_obj->password    = Hash::make(request()->password);
         $user_obj->save();
@@ -63,7 +65,7 @@ class AuthenticationController extends Controller
      * This function fetches all users
      */
     protected function getUser(){
-        $get_users =DB::table('users')->simplePaginate(10);
+        $get_users =DB::table('users')->join('towns','users.town_id','towns.id')->select('users.*','towns.town')->simplePaginate(10);
         return view('admin.users', compact('get_users'));
     }
     /** 

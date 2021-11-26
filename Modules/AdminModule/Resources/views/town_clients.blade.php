@@ -58,6 +58,9 @@
                                 </div>
                                 </div>
                                 </div>
+                                <div class="row mb-2">
+                                  <span style="color:blue; font-weight:bold;">This Town has ({{$count_clients_per_town}}) Clients</span>
+                                </div>
                                 <div class="table-responsive">
                                     <table class="table table-bordered">
                                         <thead>

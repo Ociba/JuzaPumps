@@ -80,7 +80,7 @@
                                             <th scope="row">{{$i}}</th> 
                                                 <td>{{$towns->town}}</td> 
                                                 <td>
-                                                    <a href="/adminmodule/view/{{$towns->id}}" class="btn btn-info btn-sm mb-1 waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="view clients in this Town">View</a>
+                                                    <a href="/adminmodule/view/{{$towns->id}}" class="btn btn-info btn-sm mb-1 waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="view clients in this Town">View Clients</a>
                                                    
                                                 </td>
                                             </tr>

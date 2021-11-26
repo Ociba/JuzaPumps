@@ -12,7 +12,7 @@
 */
 
 Route::prefix('adminmodule')->group(function() {
-    Route::get('/', 'AdminModuleController@index');
+    Route::get('/', 'AdminModuleController@index')->name('All Clients');
     Route::get('/fuel-stations','AdminModuleController@getFuelStations')->name('Fuel Stations');
     Route::get('/delete/{user_id}','AdminModuleController@deleteFuelStation');
     Route::get('/get-towns','AdminModuleController@getTowns')->name('Towns');
@@ -23,6 +23,21 @@ Route::prefix('adminmodule')->group(function() {
     Route::get('/initial-deposit','AdminModuleController@initialDeposits')->name('initial Deposits Per Station');
     Route::get('/get-todays-debt','AdminModuleController@todaysDebts')->name('Todays Debts');
     Route::get('/get-todays-payments','AdminModuleController@todaysPayments')->name('Todays Payments');
-    Route::get('/all-transactons','AdminModuleController@allTransactions')->name('allTransactions');
+    Route::get('/all-debts','AdminModuleController@allDebts')->name('All Debts');
+    Route::get('/all-payments','AdminModuleController@allPayments')->name('All Payments');
+
+    Route::get('/view-more/{client_id}','AdminModuleController@viewMoreOnClient')->name('More On Client');
+    Route::get('/todays-registered-riders','AdminModuleController@todaysClients')->name('Todays Registered Riders');
+    Route::get('/get-riders-reg-form','AdminModuleController@getRidersRegistrationForm')->name('Registration Form');
+    Route::get('/trashed-riders','AdminModuleController@showTrash')->name('Trashed Riders');
+
+    Route::get('/todays-revenue', 'AdminModuleController@todayRevenue')->name('Transaction Report Summary Today');
+    Route::get('/all-revenue','AdminModuleController@getRevenue')->name('All Revenue');
+    Route::get('/pending-debts','AdminModuleController@getPendingClients')->name('Pending Debts');
+    Route::get('/overdue','AdminModuleController@getOverdueClients')->name('Overdue Debts');
+    Route::get('/cleared-debts','AdminModuleController@getClearedClients')->name('Cleared Debts');
+    Route::get('/field-staff','AdminModuleController@getFieldStaff')->name('Field Staff');
+    Route::get('/get-towns-with-revenue','AdminModuleController@getFuelStationsRevenue')->name('Towns');
+    Route::get('/view-town-revenue/{fuel_station_id}','AdminModuleController@revenueCalculationsPerTown')->name('Revenue Per Town');
     
 });

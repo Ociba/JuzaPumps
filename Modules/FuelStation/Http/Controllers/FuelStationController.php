@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Modules\ClientModule\Entities\Client;
 use Modules\FuelStation\Entities\FuelStation;
 use Modules\FuelStation\Entities\Charge;
+use Modules\AdminModule\Entities\InitialFloat;
 use Auth;
 use Carbon\Carbon;
 
@@ -140,15 +141,14 @@ class FuelStationController extends Controller
         return view('fuelstation::fuel_station_debts');
     }
 
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
-    {
-        //
+    /** 
+     * This function gets all initial deposits per station
+    */
+    protected function initialDeposits(){
+        $get_all_initial_deposits_per_station =InitialFloat::join('users','initial_floats.fuel_station_id','users.id')
+        ->where('initial_floats.fuel_station_id',auth()->user()->id)
+        ->simplePaginate(10);
+        return view('fuelstation::initial_deposit', compact('get_all_initial_deposits_per_station'));
     }
 
     /**

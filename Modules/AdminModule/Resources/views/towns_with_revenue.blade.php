@@ -58,35 +58,33 @@
                                 </div>
                                 </div>
                                 </div>
-                                <div class="row mb-2">
-                                   <span style="color:blue; font-weight:bold; ">The Total Payment Today :shs. {{ number_format($todays_payment)}} /=</span>
-                                </div>
                                 <div class="table-responsive">
                                     <table class="table table-bordered">
                                         <thead>
                                             <tr style="text-transform: uppercase;font-weight:bold;font-family: Times New Roman, Times, serif;">
                                                 <th>#</th>
+                                                <th>Town</th> 
                                                 <th>Fuel Station</th> 
-                                                <th>Amount Paid</th> 
-                                                <th>Paid On</th>
-                                                <th>Status</th>
+                                                <th>Option</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                           @foreach($get_all_todays_payments as $i =>$payment)
+                                           @foreach($get_fuel_stations as $i =>$towns)
                                             <tr>
                                             @php
-                                                if( $get_all_todays_payments->currentPage() == 1){
+                                                if( $get_fuel_stations->currentPage() == 1){
                                                     $i = $i+1;
                                                 }else{
-                                                    $i = ($i+1) + 10*($get_all_todays_payments->currentPage()-1);
+                                                    $i = ($i+1) + 10*($get_fuel_stations->currentPage()-1);
                                                 }
                                             @endphp
                                             <th scope="row">{{$i}}</th> 
-                                                <td>{{$payment->name}}</td> 
-                                                <td>{{number_format($payment->amount_paid)}} /=</td> 
-                                                <td>{{$payment->created_at}}</td> 
-                                                <td>{{$payment->status}}</td> 
+                                                <td>{{$towns->town}}</td> 
+                                                <td>{{$towns->name}}</td> 
+                                                <td>
+                                                    <a href="/adminmodule/view-town-revenue/{{$towns->id}}" class="btn btn-info btn-sm mb-1 waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="view Revenue in this Town">View Revenue</a>
+                                                   
+                                                </td>
                                             </tr>
                                             @endforeach
                                         </tbody>
@@ -94,7 +92,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="text-end ml-2">
-                                        {{$get_all_todays_payments->links()}}
+                                        {{$get_fuel_stations->links()}}
                                     </div>
                                 </div>
                             </div>

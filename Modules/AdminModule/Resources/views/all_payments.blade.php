@@ -58,36 +58,35 @@
                                 </div>
                                 </div>
                                 </div>
+                                <div class="row mb-2">
+                                   <span style="color:blue; font-weight:bold; ">The Total Payments :shs. {{ number_format($payment)}} /=</span>
+                                </div>
                                 <div class="table-responsive">
                                     <table class="table table-bordered">
                                         <thead>
                                             <tr style="text-transform: uppercase;font-weight:bold;font-family: Times New Roman, Times, serif;">
                                                 <th>#</th>
                                                 <th>Fuel Station</th> 
-                                                <th>Debt</th> 
-                                                <th>Days Remaining</th>
-                                                <th>Amount Paid </th>
-                                                <th>Paid  On | Debt Created on</th>
+                                                <th>Amount Paid</th> 
+                                                <th>Paid On</th>
                                                 <th>Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                           @foreach($all_transactions as $i =>$transactions)
+                                           @foreach($all_todays_payments as $i =>$payment)
                                             <tr>
                                             @php
-                                                if( $all_transactions->currentPage() == 1){
+                                                if( $all_todays_payments->currentPage() == 1){
                                                     $i = $i+1;
                                                 }else{
-                                                    $i = ($i+1) + 10*($all_transactions->currentPage()-1);
+                                                    $i = ($i+1) + 10*($all_todays_payments->currentPage()-1);
                                                 }
                                             @endphp
                                             <th scope="row">{{$i}}</th> 
-                                                <td>{{$transactions->name}}</td> 
-                                                <td>{{number_format($transactions->debt)}} /=</td>
-                                                <td>{{\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse($transactions->days))}}</td>
-                                                <td>{{number_format($transactions->amount_paid)}} /=</td> 
-                                                <td>{{$transactions->created_at}}</td> 
-                                                <td>{{$transactions->status}}</td> 
+                                                <td>{{$payment->name}}</td> 
+                                                <td>{{number_format($payment->amount_paid)}} /=</td> 
+                                                <td>{{$payment->created_at}}</td> 
+                                                <td>{{$payment->status}}</td> 
                                             </tr>
                                             @endforeach
                                         </tbody>
@@ -95,7 +94,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="text-end ml-2">
-                                        {{$all_transactions->links()}}
+                                        {{$all_todays_payments->links()}}
                                     </div>
                                 </div>
                             </div>

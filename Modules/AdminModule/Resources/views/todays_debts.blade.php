@@ -58,6 +58,9 @@
                                 </div>
                                 </div>
                                 </div>
+                                <div class="row mb-2">
+                                   <span style="color:blue; font-weight:bold; ">The total debts Today :shs. {{ number_format($total_debt_today)}} /=</span>
+                                </div>
                                 <div class="table-responsive">
                                     <table class="table table-bordered">
                                         <thead>
@@ -81,7 +84,7 @@
                                             @endphp
                                             <th scope="row">{{$i}}</th> 
                                                 <td>{{$debt->name}}</td> 
-                                                <td>{{number_format($debt->debt)}} /=</td> 
+                                                <td>{{number_format($debt->debt + $debt->debt * 0.1)}} /=</td> 
                                                 <td>{{\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse($debt->days))}}</td> 
                                                 <td>{{$debt->status}}</td> 
                                             </tr>

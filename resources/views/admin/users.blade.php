@@ -63,6 +63,7 @@
                                                 <th>#</th>
                                                 <th>Name</th> 
                                                 <th>Category</th> 
+                                                <th>Town</th> 
                                                 <th>Photo</th> 
                                                 @if(in_array('Can View Registered Users Option', auth()->user()->getUserPermisions()))
                                                 <th>Option</th>
@@ -82,6 +83,7 @@
                                             <th scope="row">{{$i}}</th> 
                                                 <td>{{$user->name}}</td> 
                                                 <td>{{$user->category}}</td> 
+                                                <td>{{$user->town}}</td> 
                                                 <td><img style="width:50px; height:40px" src="{{ asset('user_photos/'.$user->profile_photo_path)}}"></td> 
                                                 @if(in_array('Can Delete User', auth()->user()->getUserPermisions()))
                                                 <td>

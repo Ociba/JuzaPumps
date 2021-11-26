@@ -20,4 +20,5 @@ Route::prefix('fuelstation')->group(function() {
     Route::get('/fuel-client-now/{client_id}','FuelStationController@fuelClient');
     Route::get('/clear-debt/{client_id}','FuelStationController@clearClientDebtForm')->name('Pay Debt');
     Route::get('/pay-debt/{client_id}','FuelStationController@payDebt');
+    Route::get('/initial-deposit','FuelStationController@initialDeposits')->name('My Fuel Station Initial Deposit');
 });

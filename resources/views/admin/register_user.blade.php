@@ -72,6 +72,18 @@
                                             <!--/span-->
                                         </div>
                                         <div class="row">
+                                        <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="form-label">Town of Operation</label>
+                                                    <select class="form-control form-select" name="town_id" id="town_id" required>
+                                                    @foreach($get_town as $towns)
+                                                    <option value="{{$towns->id}}">{{$towns->town}}</option>
+                                                    @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="form-label">password</label>
