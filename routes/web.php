@@ -40,4 +40,7 @@ Route::get('/delete-permission/{id}',[PermissionsController::Class,'removePermis
 Route::get('/get-permissions/{user_id}',[PermissionsController::Class,'getPermissions'])->name('Permissions');
 Route::get('/assign-permissions/{user_id}',[PermissionsController::Class,'assignPermission']);
 });
-//Route::get('/registered-riders-today',ClientController)
+Route::get('/get-towns',[AuthenticationController::Class,'getAllTowns'])->name('Rgistered Towns');
+Route::get('/registered-town',[AuthenticationController::Class,'registerTownForm'])->name('Rgister Town Now');
+Route::get('/save-town',[AuthenticationController::Class,'registerTown']);
+Route::get('/delete-town/{town_id}',[AuthenticationController::Class,'deleteTown']);

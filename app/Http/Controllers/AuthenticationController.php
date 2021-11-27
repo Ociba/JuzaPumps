@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use Hash;
 use App\Models\User;
+use App\Models\Town;
 use DB;
 
 class AuthenticationController extends Controller
@@ -53,6 +54,8 @@ class AuthenticationController extends Controller
             return redirect()->back()->withErrors('Choose Category to continue');
         }elseif(empty(request()->profile_photo_path)){
             return redirect()->back()->withErrors('Enter Photo to continue');
+       }elseif(User::where('town_id',request()->town_id)->exist()){
+            return redirect()->back()->withErrors('This Town has alredy Registered Fuel Station');
         }else{
             if(request()->password == request()->password_confirmation){
                 return $this->registerUser();
@@ -75,4 +78,38 @@ class AuthenticationController extends Controller
          User::where('id',$user_id)->delete();
          return redirect()->back()->with('msg','Operation successful');
     }
+     /** 
+     * This function gets form to get form for registering towns
+    */
+    protected function registerTownForm(){
+        return view('admin.register_town');
+    }
+    /**
+     * This function registers town
+     */
+    protected function registerTown(){
+        if(Town::Where('town', 'like', '%'. request()->town. '%')->exists()){
+            return redirect()->back()->withErrors('This Town is already Registered');
+        }else{
+
+        $town_obj = new Town;
+        $town_obj->town       = request()->town;
+        $town_obj->save();
+        return redirect()->back()->with('msg','Operation successful');
+    }
+}
+/** 
+ * This function gets all the registered towns
+*/
+protected function getAllTowns(){
+    $get_towns =Town::simplePaginate();
+    return view('admin.towns', compact('get_towns'));
+}
+/** 
+ * This function deletes the registered towns
+*/
+protected function deleteTown($town_id){
+    Town::where('id',$town_id)->delete();
+    return redirect()->back()->with('msg','Operation successful');
+}
 }

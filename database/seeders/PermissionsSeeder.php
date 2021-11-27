@@ -16,7 +16,7 @@ class PermissionsSeeder extends Seeder
     {
         $permissions = ["Can view Dashboard","Can view Client","Can view All Client","Can Edit Client","Can Trash Client",
         "Can view Today Registered Clients","Can Register Client","Can View Trashed Clients","Can Restore Client","Can Delete Client",
-        "Can view Transactions",
+        "Can view Transactions","Can view admin sidebar",'Can View field staff sidebar','Can View fuel station sidebar',
         "Can view Pay Debt","Can View Pay Debt Form","Can view Todays Transactions","Can View Reports","Can View Todays Revenvue",
         "Can view All Revenue","Can view Pending Revenue","Can View Overdue Debts","Can view Cleared Debts","Can View Permissions",
         "Can Add User Permission","Can Register User","Can View Users","Can Delete User","Can View Registered Users Option","Can View Field Staff"];

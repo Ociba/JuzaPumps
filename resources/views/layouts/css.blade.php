@@ -1,5 +1,5 @@
  <!-- Favicon icon -->
- <link rel="icon" type="image/png" sizes="16x16" href="{{asset('admin/dist/images/logo/images.jpeg')}}">
+ <link rel="icon" type="image/png" sizes="16x16" href="{{asset('admin/dist/images/logo/logo.png')}}">
 <title>JuzaPumps- {{ request()->route()->getName() }}</title>
 <!-- This page CSS -->
 <!-- chartist CSS -->

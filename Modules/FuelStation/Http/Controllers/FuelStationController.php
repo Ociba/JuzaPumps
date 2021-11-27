@@ -11,6 +11,7 @@ use Modules\FuelStation\Entities\Charge;
 use Modules\AdminModule\Entities\InitialFloat;
 use Auth;
 use Carbon\Carbon;
+use DB;
 
 class FuelStationController extends Controller
 {
@@ -151,13 +152,15 @@ class FuelStationController extends Controller
         return view('fuelstation::initial_deposit', compact('get_all_initial_deposits_per_station'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
+    public function RegisteredFuelStatinClients()
     {
-        //
+        $get_all_clients =DB::table('clients')->join('users','clients.user_id','users.id')
+        ->join('regions','clients.region_id','regions.id')
+        ->join('towns','clients.town_id','towns.id')
+        ->where('clients.deleted_at',null)
+        ->where('clients.user_id',auth()->user()->id)
+        ->select('clients.*','regions.region','towns.town')
+        ->simplePaginate(10);
+        return view('fuelstation::fuel_registered_clients',compact('get_all_clients'));
     }
 }

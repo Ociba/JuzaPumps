@@ -114,7 +114,7 @@
                                     </div>
                                     <div class="col-md-3 col-xs-6 border-end"> <strong>Days Left</strong>
                                         <br>
-                                        <p class="text-muted">{{\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse($more_info->days))}}</p>
+                                        {{--<p class="text-muted">{{\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse($more_info->days))}}</p>--}}
                                     </div>
                                     <div class="col-md-3 col-xs-6"> <strong>Current Debt</strong>
                                         <br>

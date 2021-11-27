@@ -21,4 +21,15 @@ Route::prefix('fuelstation')->group(function() {
     Route::get('/clear-debt/{client_id}','FuelStationController@clearClientDebtForm')->name('Pay Debt');
     Route::get('/pay-debt/{client_id}','FuelStationController@payDebt');
     Route::get('/initial-deposit','FuelStationController@initialDeposits')->name('My Fuel Station Initial Deposit');
+
+    Route::get('/get-todays-debt','TransactionController@todaysDebts')->name('Todays Debts');
+    Route::get('/get-todays-payments','TransactionController@todaysPayments')->name('Todays Payments');
+    Route::get('/all-debts','TransactionController@allDebts')->name('All Debts');
+    Route::get('/all-payments','TransactionController@allPayments')->name('All Payments');
+    Route::get('/clients','FuelStationController@RegisteredFuelStatinClients')->name('Clients Registered In This Fuel Station');
+
+    Route::get('/todays-revenue', 'ReportController@todayRevenue')->name('Transaction Report Summary Today');
+    Route::get('/all-revenue','ReportController@getRevenue')->name('All Revenue');
+    Route::get('/pending-debts','ReportController@getPendingClients')->name('Pending Debts');
+    Route::get('/overdue','ReportController@getOverdueClients')->name('Overdue Debts');
 });
