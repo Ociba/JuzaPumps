@@ -72,7 +72,7 @@ class ReportController extends Controller
     ->whereNotNull('fuel_stations.debt')
     ->where('fuel_stations.status','pending')
     ->where('fuel_stations.user_id',auth()->user()->id)
-    ->where('fuel_stations.days','>=','')
+    ->where('fuel_stations.created_at', '<', Carbon::now()->subDays(30))
     ->select('clients.*','fuel_stations.debt','users.name','fuel_stations.created_at')
     ->simplePaginate(10);
     return view('fuelstation::overdue',compact('get_all_client_with_overdue_payments'));

@@ -69,6 +69,7 @@ class FuelStationController extends Controller
      */
     protected function payDebt($client_id)
     {
+       
          //This saves to the fuel station
         $save_to_fuel_station =new FuelStation;
         $save_to_fuel_station->amount_paid =request()->amount_paid;
@@ -92,33 +93,47 @@ class FuelStationController extends Controller
      * This function gets form for fueling client
     */
     protected function fuelClientForm($client_id){
+        if(FuelStation::where('status','pending')->where('client_id',$client_id)->exists())
+        {
+        return redirect()->back()->withErrors('This client has unpaid Debt,Please let him clear debt first before Fueling Again');
+        }else{
         return view('fuelstation::give_fuel_form');
+        }
     }
     /**
      * This function saves the amount of money for a client who has fueled.
      */
     public function fuelClient($client_id)
     {
-          $now = Carbon::now();
-          $days_from_now = $now->addDays(30);
-        //This saves to the fuel station
-          $save_to_fuel_station =new FuelStation;
-          $save_to_fuel_station->debt =request()->debt;
-          $save_to_fuel_station ->days=$days_from_now;
-          $save_to_fuel_station->user_id =Auth::user()->id;
-          $save_to_fuel_station->client_id =request()->client_id;
-          $save_to_fuel_station->save();
+        if(Client::where('pin', request()->pin)->where('client_id',$client_id))
+        {
+            $now = Carbon::now();
+            $days_from_now = $now->addDays(30);
+          //This saves to the fuel station
+            $save_to_fuel_station =new FuelStation;
+            $save_to_fuel_station->debt =request()->debt;
+            $save_to_fuel_station->pin =request()->pin;
+            $save_to_fuel_station ->days=$days_from_now;
+            $save_to_fuel_station->user_id =Auth::user()->id;
+            $save_to_fuel_station->client_id =request()->client_id;
+            $save_to_fuel_station->save();
+            
+
 
            //This saves to charges
-            $current_debt = \DB::table('fuel_stations')->where('client_id',$client_id)->latest('debt')->value('debt');
-             $charge =$current_debt * 0.1;
+           $current_debt = \DB::table('fuel_stations')->where('client_id',$client_id)->latest('debt')->value('debt');
+           $charge =$current_debt * 0.1;
             $save_charge =new Charge;
             $save_charge->charge   =$charge;
             $save_charge->client_id =request()->client_id;
             $save_charge->fuel_station_id =Auth::user()->id;
             $save_charge->save();
 
-            return redirect()->back()->with('msg', 'Operation Successfull');
+          return redirect()->back()->with('msg', 'Operation Successfull');
+        }else{
+            return redirect()->back()->withErrors('This Pin does not match our details try again');
+        }
+
     }
 
     /**

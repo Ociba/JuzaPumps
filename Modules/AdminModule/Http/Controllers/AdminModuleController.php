@@ -251,7 +251,7 @@ class AdminModuleController extends Controller
     ->join('clients','fuel_stations.client_id','clients.id')
     ->whereNotNull('fuel_stations.debt')
     ->where('fuel_stations.status','pending')
-    ->where('fuel_stations.days','>=','')
+    ->where('fuel_stations.created_at', '<', Carbon::now()->subDays(30))
     ->select('clients.*','fuel_stations.debt','users.name','fuel_stations.created_at')
     ->simplePaginate(10);
     return view('adminmodule::overdue',compact('get_all_client_with_overdue_payments'));

@@ -131,7 +131,7 @@ class User extends Authenticatable
      * this function counts the number of riders for the loggeind user
      */
     public function countUserNumberOfRiders(){
-        return DB::table('clients')->where('user_id',$this->id)->count();
+        return DB::table('clients')->where('deleted_at',null)->count();
     }
      /**
      * this function gets amount collected this current week

@@ -25,4 +25,10 @@ Route::group(['prefix'=>'clientmodule', 'middleware'=>['auth']],function(){
     Route::get('/search-client','ClientModuleController@searchClient')->name('Searched Client');
     Route::get('/search-todays-client','ClientModuleController@searchTodaysClient')->name('Searched Client');
     Route::get('/search-trashed-client','ClientModuleController@searchTrashedClient')->name('Searched Client');
+
+    Route::get('/get-todays-debt','TransactionController@todaysDebts')->name('Todays Debts');
+    Route::get('/get-todays-payments','TransactionController@todaysPayments')->name('Todays Payments');
+    Route::get('/all-debts','TransactionController@allDebts')->name('All Debts');
+    Route::get('/all-payments','TransactionController@allPayments')->name('All Payments');
+    Route::get('/overdue-debts','TransactionController@overdue')->name('Overdue Debts');
 });

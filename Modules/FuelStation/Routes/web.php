@@ -11,7 +11,8 @@
 |
 */
 
-Route::prefix('fuelstation')->group(function() {
+
+Route::group(['prefix'=>'fuelstation', 'middleware'=>['auth']],function(){
     Route::get('/', 'FuelStationController@index');
     Route::get('/search-client','FuelStationController@index')->name('Fuel Service');
     Route::get('/search-client-info','FuelStationController@searchClient')->name('Searched Client Information');

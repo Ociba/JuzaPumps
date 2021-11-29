@@ -78,22 +78,12 @@
                  </li>
                  <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-book"></i><span class="hide-menu"> Transactions</span></a>
                     <ul aria-expanded="false" class="collapse">
-                        <li> <a class="waves-effect waves-dark" href="/adminmodule/get-todays-debt"><span class="hide-menu"> Todays Debts</span></a></li>
-                        <li> <a class="waves-effect waves-dark" href="/adminmodule/get-todays-payments"><span class="hide-menu"> Todays Payments</span></a></li>
-                        <li> <a class="waves-effect waves-dark" href="/adminmodule/all-transactons"><span class="hide-menu"> All Transactions</span></a></li>
+                        <li> <a class="waves-effect waves-dark" href="/clientmodule/get-todays-debt"><span class="hide-menu"> Todays Debts</span></a></li>
+                        <li> <a class="waves-effect waves-dark" href="/clientmodule/get-todays-payments"><span class="hide-menu"> Todays Payments</span></a></li>
+                        <li> <a class="waves-effect waves-dark" href="/clientmodule/all-debts"><span class="hide-menu"> All Debts</span></a></li>
+                        <li> <a class="waves-effect waves-dark" href="/clientmodule/all-payments"><span class="hide-menu"> All Payments</span></a></li>
+                        <li> <a class="waves-effect waves-dark" href="/clientmodule/overdue-debts"><span class="hide-menu"> Overdue Debts</span></a></li>
                      </ul>
-                </li>
-                <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-move"></i><span class="hide-menu"> Reports</span></a>
-                    <ul aria-expanded="false" class="collapse">
-                        <li> <a class="waves-effect waves-dark" href="/reportmodule/"><span class="hide-menu"> Todays Revenue</span></a>
-                        </li>
-                        <li> <a class="waves-effect waves-dark" href="/reportmodule/all-revenue"><span class="hide-menu"> All Revenue</span></a>
-                        </li>
-                        <li> <a class="waves-effect waves-dark" href="/reportmodule/pending-debts"><span class="hide-menu"> Pending Revenue</span></a>
-                        </li>
-                        <li> <a class="waves-effect waves-dark" href="/reportmodule/overdue"><span class="hide-menu"> Overdue Debts</span></a>
-                        </li>
-                    </ul>
                 </li>
                 @endif
                  

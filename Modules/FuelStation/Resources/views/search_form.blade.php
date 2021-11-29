@@ -40,13 +40,13 @@
                             <div class="col-lg-4"></div>
                             <div class="col-lg-4">
                             <div class="card text-center">
-                                <div class="card-header bg-indigo text-white" style="background-color:#6610f2;">
+                                <div class="card-header bg-indigo text-white" style="background-color:#000066;">
                                 <h4>Enter MotorCycle Number Plate</h4>
                                 </div>
                                 <div class="card-body">
                                 <form action="/fuelstation/search-client-info" method="get">
                                     <p class="card-text"><input type="text" class="form-control" name="number_plate" required></p>
-                                    <button type="submit" class="btn btn-info">Search Client</button>
+                                    <button type="submit" class="btn btn-info" style="background-color:#000066;">Search Client</button>
                                 </form>
                                 </div>
                             </div>

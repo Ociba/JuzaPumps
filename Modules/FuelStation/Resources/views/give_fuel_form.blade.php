@@ -42,7 +42,7 @@
                             <div class="col-lg-4">
                             <div class="card">
                                 <div class="card-header bg-indigo text-white  text-center" style="background-color:#000066;">
-                                <h4>Float Ugshs:{{ number_format(auth()->user()->calculateFloat())}}</h4>
+                                <h4>Float Ugshs:{{ number_format(auth()->user()->actualFloat())}}</h4>
                                 </div>
                                 <div class="card-body">
                                 <form action="/fuelstation/fuel-client-now/{{request()->route()->client_id}}" method="get">
@@ -52,7 +52,14 @@
                                         <label>Amount</label>
                                         <input type="text" class="form-control" name="debt" placeholder="Amount" required>
                                     </p>
-                                    <button type="submit" class="btn text-white" style="background-color:#000066;">Fuel Now</button>
+                                    <p>
+                                    <label>Clients Pin</label>
+                                        <input type="text" class="form-control" name="pin" placeholder="e.g 12345" required>
+                                    </p>
+                                    <div class="text-center">
+                                      <button type="submit" class="btn text-white" style="background-color:#000066;">Fuel Now</button>
+                                    {{--<button class="btn btn-sm btn-danger deleteDW" dw-id="" data-toggle="modal" data-target="#deleteDomesticWorker">Delete</button>--}}
+                                    </div>
                                 </form>
                                 </div>
                             </div>
@@ -95,5 +102,42 @@
     <!-- End Wrapper -->
     <!-- All Jquery -->
     @include('layouts.javascript')
+<div class="modal fade" id="deleteDomesticWorker" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-info" role="document">
+    <!--Content-->
+    <div class="modal-content">
+      <!--Header-->
+      <form action="/registramodule/remove-from-trash" method="get">
+      <div class="modal-header d-flex justify-content-center bg-danger text-white">
+        <h4 class="heading text-white">Enter Clients Pin Number to Confirm ?</h4>
+      </div>
+    <input type="hidden" name="delete_dw" id="delete_dw">
+      <!--Body-->
+      <div class="modal-body text-center">
+       <input type="text" name="pin" class="form-control" placeholder="e.g 12345">
+    </div>
+    <!--Footer-->
+    <div class="text-center mb-3">
+        <button type="submit" class="btn btn-primary">Confirm</button>
+        <button type="button" class="btn btn-danger waves-effect text-start text-white" data-bs-dismiss="modal">Close</button>
+    </div>
+     </form>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+    <script>
+        $(document).on('click','.deleteDW',function(){
+            var userID=$(this).attr('dw-id');
+            $('#id').val(userID); 
+            $('#deleteDomesticWorker').modal('show'); 
+        });
+
+        $('button[data-toggle = "modal"]').click(function(){
+            var dw_delete = $(this).parents('tr').children('td').eq(1).text();
+            document.getElementById('delete_dw').setAttribute("Value", dw_delete);
+            });
+    </script>
 </body>
 </html>

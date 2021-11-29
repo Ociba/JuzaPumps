@@ -59,8 +59,8 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-12">
-                        <h4 class="card-subtitle" style="color:black;">Total No. of Riders (Town)</h4></div>
-                        <h3>Kabarole = {{auth()->user()->countUserNumberOfRiders()}}</h3>
+                        <h4 class="card-subtitle" style="color:black;">Total No. of Riders</h4></div>
+                        <h3>{{auth()->user()->countUserNumberOfRiders()}}</h3>
                     <div class="col-12">
                         <div class="progress">
                             <div class="progress-bar bg-inverse" role="progressbar" style="width: 100%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>

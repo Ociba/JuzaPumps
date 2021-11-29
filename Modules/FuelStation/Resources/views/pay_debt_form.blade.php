@@ -42,7 +42,7 @@
                             <div class="col-lg-4">
                             <div class="card">
                                 <div class="card-header bg-indigo text-white  text-center" style="background-color:#000066;">
-                                <h4>Float Ugshs:{{ number_format(auth()->user()->calculateFloat())}}</h4>
+                                <h4>Float Ugshs:{{ number_format(auth()->user()->actualFloat())}}</h4>
                                 </div>
                                 <div class="card-body">
                                 <form action="/fuelstation/pay-debt/{{request()->route()->client_id}}" method="get">

@@ -132,6 +132,7 @@
                                         <h4 class="card-title"><b>Give Fuel</b></h4>
                                         <p class="card-text"><button type="button" class="btn btn-success">Float Ugshs:{{ number_format(auth()->user()->actualFloat())}} </button></p>
                                         <p>
+                     
                                         <a href="/fuelstation/fuel-client/{{$more_info->id}}" type="button" class="btn btn-success">Fuel</a>
                                         </p>
                                     </div>

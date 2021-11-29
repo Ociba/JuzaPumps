@@ -18,6 +18,7 @@ class CreateFuelStationsTable extends Migration
             $table->foreignId('client_id');
             $table->foreignId('fuel_station_id');
             $table->string('debt')->nullable();
+            $table->string('pin')->nullable();
             $table->string('amount_paid')->nullable();
             $table->enum('status',['paid','pending','overdue'])->default('pending');
             $table->timestamps();

@@ -47,14 +47,14 @@
                                 <div class="col-lg-4 mb-2">
                                 </div>
                                 <div class=" col-lg-4">
-                                    <form action="/reportmodule/search-overdue-debts" method="get">
+                                   <form action="/clientmodule/search-client" method="get">
                                         <div class="input-group mb-3">
                                                 <input type="text" class="form-control" name="number_plate" placeholder="Search Number Plate" aria-label="" aria-describedby="basic-addon1">
                                                 <div class="input-group-append">
                                                     <button class="btn btn-info btn-lg text-white" type="submit">Search</button>
                                                 </div>
                                         </div>
-                                    </form>
+                                  </form>
                                 </div>
                                 </div>
                                 </div>
@@ -63,24 +63,25 @@
                                         <thead>
                                             <tr style="text-transform: uppercase;font-weight:bold;font-family: Times New Roman, Times, serif;">
                                                 <th>#</th>
-                                                <th>First Name</th> 
-                                                <th>Other Names</th> 
-                                                <th>Telephone</th> 
-                                                <th>Number Plate</th> 
-                                                <th>Stage</th> 
-                                                <th>Debt</th> 
-                                                <th>OverDue Charge</th> 
-                                                <th>Option</th>
+                                                <th>Client</th> 
+                                                <th>Number Plate</th>
+                                                <th>Stage</th>
+                                                <th>Leader</th>
+                                                <th>Leader Contact</th>
+                                                <th>Expired on</th> 
+                                                <th>Debt</th>
+                                                <th>Debt Now</th>
+                                                <th>Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                           @foreach($get_all_client_with_overdue_payments as $i =>$riders)
+                                           @foreach($overdue_debts as $i =>$riders)
                                             <tr>
                                             @php
-                                                if( $get_all_client_with_overdue_payments->currentPage() == 1){
+                                                if( $overdue_debts->currentPage() == 1){
                                                     $i = $i+1;
                                                 }else{
-                                                    $i = ($i+1) + 10*($get_all_client_with_overdue_payments->currentPage()-1);
+                                                    $i = ($i+1) + 10*($overdue_debts->currentPage()-1);
                                                 }
                                             @endphp
                                             <th scope="row">{{$i}}</th> 
@@ -102,7 +103,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="text-end ml-2">
-                                        {{$get_all_client_with_overdue_payments->links()}}
+                                        {{$overdue_debts->links()}}
                                     </div>
                                 </div>
                             </div>
