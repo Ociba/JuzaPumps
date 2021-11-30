@@ -130,7 +130,7 @@
         var pieChart = new Chart(document.getElementById('chart-pie2').getContext("2d"), {
             type: 'pie',
             data: {
-            labels: [ 'Expected Amount', 'Amount Collected', 'Not Paid' ],
+            labels: [ 'Total Initial Floats', 'Amout Paid', 'Debts' ],
             datasets: [{
                 data: [{{auth()->user()->totalDebts()}}, {{auth()->user()->totalCurrentAmountPaid()}}, {{auth()->user()->totalAmountNotPaid()}} ],
                 backgroundColor: [ '#6600cc', '#00cc66', '#ff9900' ],

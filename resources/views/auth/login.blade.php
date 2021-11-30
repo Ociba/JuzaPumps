@@ -19,7 +19,8 @@
 
 <body>
 
-<div id="single-wrapper">
+<div id="single-wrapper" style="background: linear-gradient(to bottom, rgba(107, 107, 71, 0.42), rgba(153, 153, 102, 0.80)),
+    url('assets/images/mot07.jpeg'); top center no-repeat;background-size:cover;overflow:hidden;width:100%;padding:0 15px 0 15px">
         @if (session('status'))
             <div class="mb-4 font-medium text-sm text-green-600">
                 {{ session('status') }}

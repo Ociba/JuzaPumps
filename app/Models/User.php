@@ -80,19 +80,19 @@ class User extends Authenticatable
      * This function counts riders with debtors today (0-1day)
     */
     public function countTodaysDebtors(){
-        $count_todays_riders_debtors =DB::table('clients')
-        ->where('clients.deleted_at',null)
-        ->where('clients.status','pending')
-        ->where('clients.created_at','>=',Carbon::today())->count();
+        $count_todays_riders_debtors =DB::table('fuel_stations')
+        ->whereNotNull('debt')
+        ->where('status','pending')
+        ->where('created_at','>=',Carbon::today())->count();
         return $count_todays_riders_debtors;
     }
     /**
      * This function counts defaulters from 2 days to 10 days
      */
-    public function countDefaultersTwoToTenDays(){
+    public function countDefaultersTwoToTenDays(){ 
         //day of creation is created at after adding 2 days to it
         //last day of defaulting is day of creation plus 8
-        $defaulters = Client::where('created_at','>',Carbon::now()->subDays(10))->count();
+        $defaulters = FuelStation::whereNotNull('debt')->where('status','pending')->where('created_at','>',Carbon::now()->subDays(10))->count();
         return $defaulters;
     }
     /** 
@@ -139,27 +139,27 @@ class User extends Authenticatable
      */
     public function getThisCurrentWeekRevenue(){
         Carbon::setWeekStartsAt(Carbon::SUNDAY);
-        return DB::table('payments')->whereBetween('created_at', [Carbon::now()->startOfWeek(),Carbon::now()->endOfWeek()])->where('user_id',$this->id)->sum('amount_paid');
+        return DB::table('fuel_stations')->whereBetween('created_at', [Carbon::now()->startOfWeek(),Carbon::now()->endOfWeek()])->sum('amount_paid');
     }
-    /** 
+    /** ->where('user_id',$this->id)
      * This function gets amount paid this month
     */
     public function getThisCurrentMonthRevenue(){
-         return DB::table('payments')->whereMonth('created_at', date('m'))
-         ->whereYear('created_at', date('Y'))->where('user_id',$this->id)->sum('amount_paid');
+         return DB::table('fuel_stations')->whereMonth('created_at', date('m'))
+         ->whereYear('created_at', date('Y'))->sum('amount_paid');
     }
     /** 
      * This function gets current amount paid this year
     */
     public function getThisYearsRevenue(){
-        return DB::table('payments')->whereYear('created_at', date('Y'))->where('user_id',$this->id)->sum('amount_paid');
+        return DB::table('fuel_stations')->whereYear('created_at', date('Y'))->sum('amount_paid');
     }
     public function getEnforcement(){
         //day of creation is created at after 11 days
         //last day of defaulting is day of creation plus 10
-        $last_11_days = Client::where('created_at','>=',Carbon::now()->subdays(4))->count();
+        $last_11_days = FuelStation::where('created_at','>=',Carbon::now()->subdays(4))->count();
         
-       return Client::whereDay('created_at','>=',"+'' day")->count();
+       return FuelStation::whereNotNull('debt')->where('status','pending')->whereDay('created_at','>=',"+'' day")->count();
        
         //$all= Client::where('created_at',[$start_date, $last_11_days])->get();
         //dd($last_11_days);
@@ -210,13 +210,13 @@ class User extends Authenticatable
      * This function gets sum expected amount as debts
     */
     public function totalDebts(){
-        return FuelStation::where('fuel_stations.status','pending')->sum('debt');
+        return FuelStation::where('status','pending')->sum('debt');
     }
     /** 
      * This function gets sum of amount paid
     */
     public function totalCurrentAmountPaid(){
-        return Payment::where('payments.deleted_at',null)->sum('amount_paid');
+        return FuelStation::where('status','paid')->sum('amount_paid');
     }
       /** 
      * This function gets gets amount not paid
