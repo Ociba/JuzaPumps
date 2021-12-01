@@ -18,7 +18,10 @@
                         </li>
                         <li> <a class="waves-effect waves-dark" href="/adminmodule/trashed-riders"><span class="hide-menu"> Trashed Clients</span></a>
                         </li>
+                        
                      </ul>
+                 </li>
+                 <li> <a class="waves-effect waves-dark" href="/adminmodule/fuel-stations"><i class="ti-spray"></i><span class="hide-menu"> Fuel Stations</span></a>
                  </li>
                  <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-book"></i><span class="hide-menu"> Transactions</span></a>
                     <ul aria-expanded="false" class="collapse">

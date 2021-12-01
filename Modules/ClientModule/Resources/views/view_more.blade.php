@@ -75,7 +75,7 @@
                                     </div>
                                     <div class="col-md-3 col-xs-6 border-end"> <strong>Number Plate</strong>
                                         <br>
-                                        <p class="text-muted">{{$more_info->number_plate}}</p>
+                                        <p class="text-muted">{{str_replace(' ','-',$more_info->number_plate)}}</p>
                                     </div>
                                     <div class="col-md-3 col-xs-6 border-end"> <strong>ID Number</strong>
                                         <br>

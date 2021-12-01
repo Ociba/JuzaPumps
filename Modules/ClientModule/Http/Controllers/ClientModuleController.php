@@ -105,13 +105,13 @@ class ClientModuleController extends Controller
     protected function createNewRider()
     {
         if(Client::where('telephone',request()->telephone)->exists()){
-            return redirect()->back()->withErrors('This phone Number is already taken');
+            return redirect()->back()->withErrors('This phone Number is already taken')->withInput();
         }elseif(Client::where('number_plate',request()->number_plate)->exists()){
-            return redirect()->back()->withErrors('This Number Plate is already taken');
+            return redirect()->back()->withErrors('This Number Plate is already taken')->withInput();
         }elseif(Client::where('id_number',request()->id_number)->exists()){
-            return redirect()->back()->withErrors('This ID Number is already taken');
-        }elseif(Client::where('pin',request()->pin)->exists()){
-            return redirect()->back()->withErrors('This Pin Number is already taken');
+            return redirect()->back()->withErrors('This ID Number is already taken')->withInput();
+        }elseif(is_numeric(substr(request()->number_plate, -1))){
+            return redirect()->back()->withErrors('A number plate should end with a letter')->withInput();
         }else{
             return $this->createClientsInformation();
         }

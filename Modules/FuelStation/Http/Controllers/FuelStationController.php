@@ -28,19 +28,20 @@ class FuelStationController extends Controller
      * Search by number plate
     */
     protected function searchClient(){
-        if(Client::where('number_plate', request()->number_plate)->doesntExist())
+        $number_plate = str_replace('-',' ',request()->number_plate);
+        if(Client::where('number_plate', $number_plate)->doesntExist())
         {
             return Redirect()->back()->withInput()->withErrors('Number Plate doesnot exists, please check your spelling or it is not Registered');
         }
 
         $amount_paid =FuelStation::where('fuel_stations.user_id',auth()->user()->id)->where('status','paid')->sum('amount_paid');
 
-        $client_id = \DB::table('clients')->where('number_plate',request()->number_plate)->value('id');
+        $client_id = \DB::table('clients')->where('number_plate',$number_plate)->value('id');
         $charge = \DB::table('charges')->where('client_id',$client_id)->where('fuel_station_id',auth()->user()->id)->where('status','pending')->value('charge');
         $debt = \DB::table('fuel_stations')->where('client_id',$client_id)->where('status','pending')->sum('debt') + $charge- \DB::table('fuel_stations')->where('client_id',$client_id)->where('status','pending')->sum('amount_paid');
         
         $get_client_information = Client::join('regions','clients.region_id','regions.id')
-            ->join('towns','clients.town_id','towns.id')->Where('number_plate', 'like', '%'. request()->number_plate. '%')
+            ->join('towns','clients.town_id','towns.id')->Where('number_plate', 'like', '%'. $number_plate. '%')
             ->select('clients.*','regions.region','towns.town')->get();
         return view('fuelstation::client',compact('get_client_information','debt','amount_paid'));
     }
@@ -69,7 +70,6 @@ class FuelStationController extends Controller
      */
     protected function payDebt($client_id)
     {
-       
          //This saves to the fuel station
         $save_to_fuel_station =new FuelStation;
         $save_to_fuel_station->amount_paid =request()->amount_paid;
@@ -84,10 +84,10 @@ class FuelStationController extends Controller
 
          //This function updates the client debt to 0
          FuelStation::where('client_id',$client_id)->latest('debt')->update(array(
-             'status' =>'paid'
+            'status' =>'paid'
          ));
-
-        return redirect()->back()->with('msg', 'Operation Successfull');
+         $number_plate = DB::table('clients')->where('id',$client_id)->value('number_plate');
+        return redirect()->to('/fuelstation/search-client-info?number_plate='.$number_plate)->with('msg', 'Operation Successfull');
     }
     /** 
      * This function gets form for fueling client
@@ -105,7 +105,12 @@ class FuelStationController extends Controller
      */
     public function fuelClient($client_id)
     {
-        if(Client::where('pin', request()->pin)->where('client_id',$client_id))
+
+        if(request()->debt < 5000 || request()->debt > 10000){
+            return redirect()->back()->withErrors('The amount entered should be between 5000 to 10000');
+        }
+
+        if(Client::where('pin', request()->pin)->where('id',$client_id)->exists())
         {
             $now = Carbon::now();
             $days_from_now = $now->addDays(30);
@@ -118,18 +123,17 @@ class FuelStationController extends Controller
             $save_to_fuel_station->client_id =request()->client_id;
             $save_to_fuel_station->save();
             
-
-
            //This saves to charges
-           $current_debt = \DB::table('fuel_stations')->where('client_id',$client_id)->latest('debt')->value('debt');
-           $charge =$current_debt * 0.1;
+            $current_debt = request()->debt;
+            $charge =$current_debt * 0.1;
             $save_charge =new Charge;
             $save_charge->charge   =$charge;
             $save_charge->client_id =request()->client_id;
             $save_charge->fuel_station_id =Auth::user()->id;
             $save_charge->save();
 
-          return redirect()->back()->with('msg', 'Operation Successfull');
+            $number_plate = DB::table('clients')->where('id',$client_id)->value('number_plate');
+            return redirect()->to('/fuelstation/search-client-info?number_plate='.$number_plate)->with('msg', 'Operation Successfull');
         }else{
             return redirect()->back()->withErrors('This Pin does not match our details try again');
         }

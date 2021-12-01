@@ -85,7 +85,7 @@
                                                 <td>{{$clients->other_names}}</td> 
                                                 <td>{{$clients->first_name}}</td> 
                                                 <td>{{$clients->telephone}}</td> 
-                                                <td>{{$clients->number_plate}}</td> 
+                                                <td>{{str_replace(' ','-',$clients->number_plate)}}</td> 
                                                 <td>{{$clients->stage_name}}</td> 
                                                 <td>
                                                     <a href="/clientmodule/view-more/{{$clients->id}}" class="btn btn-info btn-sm mb-1 waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="View More Information">View</a>

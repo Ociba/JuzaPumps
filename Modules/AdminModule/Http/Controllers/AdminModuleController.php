@@ -27,15 +27,15 @@ class AdminModuleController extends Controller
         ->simplePaginate(10);
         return view('adminmodule::index',compact('get_all_clients'));
     }
-     /** 
+    /** 
     * This function gets clients registration form
-   */
-  protected function getRidersRegistrationForm(){
+    */
+    protected function getRidersRegistrationForm(){
     $get_region =DB::table('regions')->get();
     $get_towns =DB::table('towns')->get();
     return view('adminmodule::riders_registration_form', compact('get_region','get_towns'));
-}
-  /** 
+    }
+    /** 
      * This function views more on particular client
     */
     protected function todaysClients(){
@@ -58,9 +58,9 @@ class AdminModuleController extends Controller
         ->onlyTrashed()->simplePaginate('10');
         return view('adminmodule::trashed_client', compact('trashed_client'));
     }
-     /** 
-      * This function gets registered fuel stations
-     */
+    /** 
+     * This function gets registered fuel stations
+    */
     public function getFuelStations(){
         $get_fuel_stations =DB::table('users')->where('category','fuel_station')->simplePaginate(10);
         return view('adminmodule::fuel_station', compact('get_fuel_stations'));
@@ -80,17 +80,17 @@ class AdminModuleController extends Controller
         ->simplePaginate(10);
         return view('adminmodule::initial_deposit', compact('get_all_initial_deposits_per_station'));
     }
-  /** 
-   * This function deposits money to the petrol station
-  */
-  protected function depositMoney(){
-      $initial_deposit =new InitialFloat;
-      $initial_deposit->user_id         =Auth::user()->id;
-      $initial_deposit->float           =request()->float;
-      $initial_deposit->fuel_station_id =request()->fuel_station_id;
-      $initial_deposit->save();
-      return redirect()->back()->with('msg','Operation Successfull');
-  }
+    /** 
+     * This function deposits money to the petrol station
+     */
+    protected function depositMoney(){
+        $initial_deposit =new InitialFloat;
+        $initial_deposit->user_id         =Auth::user()->id;
+        $initial_deposit->float           =request()->float;
+        $initial_deposit->fuel_station_id =request()->fuel_station_id;
+        $initial_deposit->save();
+        return redirect()->back()->with('msg','Operation Successfull');
+    }
     /** 
      * This function deletes fuelstation
     */
@@ -108,7 +108,7 @@ class AdminModuleController extends Controller
         ->simplePaginate(10);
         return view('adminmodule::towns', compact('get_all_towns'));
     }
-     /** 
+    /** 
      * This function gets all districts of operarations
     */
     protected function viewClientsInThisTowns($town_id){
@@ -138,7 +138,6 @@ class AdminModuleController extends Controller
      */
     protected function todaysDebts()
     {
-        
         $charge = \DB::table('charges')->where('created_at','>=',Carbon::today())->where('status','pending')->sum('charge');
         $debts = \DB::table('fuel_stations')->where('created_at','>=',Carbon::today())->where('status','pending')->sum('debt');
         $total_debt_today = $charge + $debts;
@@ -213,7 +212,7 @@ class AdminModuleController extends Controller
     /** 
      * This function gets all revenue
      *search using data range
-   */
+    */
     protected function getRevenue(){
     $get_all_client_payments =DB::table('fuel_stations')->join('users','fuel_stations.user_id','users.id')
     ->join('clients','fuel_stations.client_id','clients.id')
@@ -223,12 +222,12 @@ class AdminModuleController extends Controller
     //get sum of money collected
     $get_total_revenue_collected= DB::table('fuel_stations')->sum('amount_paid');
     return view('adminmodule::revenue',compact('get_all_client_payments','get_total_revenue_collected'));
-  }
+    }
 
-   /** 
+    /** 
     * This function gets all clients with pending debts
-   */
-  protected function getPendingClients(){
+    */
+    protected function getPendingClients(){
     $charge = \DB::table('charges')->where('status','pending')->sum('charge');
     $debts = \DB::table('fuel_stations')->where('status','pending')->sum('debt');
     $total_debt = $charge + $debts;
@@ -240,12 +239,12 @@ class AdminModuleController extends Controller
     ->select('clients.*','fuel_stations.debt','users.name','fuel_stations.created_at')
     ->simplePaginate(10);
     return view('adminmodule::pending_debts',compact('get_all_client_with_pending_payments','total_debt')); 
-  }
+    }
 
     /** 
     * This function gets all clients with overdue debts
-   */
-  protected function getOverdueClients(){
+    */
+    protected function getOverdueClients(){
 
     $get_all_client_with_overdue_payments =DB::table('fuel_stations')->join('users','fuel_stations.user_id','users.id')
     ->join('clients','fuel_stations.client_id','clients.id')
@@ -255,26 +254,26 @@ class AdminModuleController extends Controller
     ->select('clients.*','fuel_stations.debt','users.name','fuel_stations.created_at')
     ->simplePaginate(10);
     return view('adminmodule::overdue',compact('get_all_client_with_overdue_payments'));
-  }
-  /** 
+    }
+    /** 
     * This function gets all fuel stations in different towns
-   */
-  protected function getFuelStationsRevenue(){
+    */
+    protected function getFuelStationsRevenue(){
 
     $get_fuel_stations =DB::table('users')->join('towns','users.town_id','towns.id')
     ->where('users.category','fuel_station')
     ->select('users.*','towns.town')
     ->simplePaginate(10);
     return view('adminmodule::towns_with_revenue',compact('get_fuel_stations'));
-  }
-  /** 
-   * This function gets revenue summary per town per petro station
-  */
-  protected function revenueCalculationsPerTown($fuel_station_id){
-      $charge = \DB::table('charges')->where('fuel_station_id',$fuel_station_id)->where('status','pending')->sum('charge');
-      $total_debts =DB::table('fuel_stations')->where('user_id',$fuel_station_id)->where('status','pending')->sum('debt');
-      $actual_debt=$charge + $total_debts;
-      $total_amount_paid =DB::table('fuel_stations')->where('user_id',$fuel_station_id)->where('status','paid')->sum('amount_paid');
-      return view('adminmodule::town_revenue',compact('actual_debt','total_amount_paid'));
-  }
+    }
+    /** 
+     * This function gets revenue summary per town per petro station
+     */
+    protected function revenueCalculationsPerTown($fuel_station_id){
+    $charge = \DB::table('charges')->where('fuel_station_id',$fuel_station_id)->where('status','pending')->sum('charge');
+    $total_debts =DB::table('fuel_stations')->where('user_id',$fuel_station_id)->where('status','pending')->sum('debt');
+    $actual_debt=$charge + $total_debts;
+    $total_amount_paid =DB::table('fuel_stations')->where('user_id',$fuel_station_id)->where('status','paid')->sum('amount_paid');
+    return view('adminmodule::town_revenue',compact('actual_debt','total_amount_paid'));
+    }
 }

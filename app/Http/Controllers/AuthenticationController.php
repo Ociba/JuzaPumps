@@ -54,9 +54,11 @@ class AuthenticationController extends Controller
             return redirect()->back()->withErrors('Choose Category to continue');
         }elseif(empty(request()->profile_photo_path)){
             return redirect()->back()->withErrors('Enter Photo to continue');
-       }elseif(User::where('town_id',request()->town_id)->exist()){
-            return redirect()->back()->withErrors('This Town has alredy Registered Fuel Station');
-        }else{
+        }
+        // elseif(User::where('town_id',request()->town_id)->exists()){
+        //     return redirect()->back()->withErrors('This Town has alredy Registered Fuel Station');
+        // }
+        else{
             if(request()->password == request()->password_confirmation){
                 return $this->registerUser();
             }else{

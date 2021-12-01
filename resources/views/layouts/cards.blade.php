@@ -5,7 +5,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-12">
-                        <h4 class="card-subtitle" style="color:green;">Registered Riders Today</h4></div>
+                        <h4 class="card-subtitle" style="color:green;"><font size="3">Registered Riders Today</font></h4></div>
                         <h3>{{auth()->user()->countTodaysRiders()}}</h3>
                     <div class="col-12">
                         <div class="progress">
@@ -23,7 +23,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-12">
-                       <h4 class="card-subtitle" style="color:blue;">Normal Debts (0 -1 Day)</h4></div>
+                       <h4 class="card-subtitle" style="color:blue;"><font size="3">Normal Debts (0 -1 Day)</font></h4></div>
                         <h3>{{auth()->user()->countTodaysDebtors()}}</h3>
                     <div class="col-12">
                         <div class="progress">
@@ -78,7 +78,7 @@
     <div class="col-md-3">
         <div class="card border-info">
             <div class="card-header bg-info">
-                <h4 class="m-b-0 text-white">Enforcement (11 $ Above)</h4></div>
+                <h4 class="m-b-0 text-white text-wrap"><font size="3">Enforcement (11 &amp; Above)</font></h4></div>
             <div class="card-body">
                 <h3 class="card-title">{{auth()->user()->getEnforcement()}}</h3>
             </div>

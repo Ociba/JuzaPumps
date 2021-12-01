@@ -122,18 +122,29 @@
                                     </div>
                                 </div>
                             </div>
-                           
                         </div>
+                        @php
+                            $float = \DB::table('initial_floats')->where('fuel_station_id',auth()->user()->id)->value('float');
+                            $debts_given_out = \DB::table('fuel_stations')->where('user_id',auth()->user()->id)->where('status','pending')->sum('debt');
+                            $amount_paid = \DB::table('charges')->where('fuel_station_id',auth()->user()->id)->where('status','paid')->sum('charge');
+                        @endphp
+                        <div class="row">
+                            <div class="col-lg-2"></div>
+                            <div class="col-lg-1"></div>
+                            <div class="col-lg-6 bg-success text-center">
+                                <span class="text-white">Float: <b>{{number_format(($float - $debts_given_out) + $amount_paid )}}/=</b></span>
+                            </div><br>
+                            <div class="col-lg-2"></div>
+                        </div><br>
                          <!-- Row -->
                          <div class="row">
                             <div class="col-md-6">
                                 <div class="card text-center">
                                     <div class="card-body">
-                                        <h4 class="card-title"><b>Give Fuel</b></h4>
-                                        <p class="card-text"><button type="button" class="btn btn-success">Float Ugshs:{{ number_format(auth()->user()->actualFloat())}} </button></p>
+                                        <h4 class="card-title"><b>Credit Fuel</b></h4>
                                         <p>
                      
-                                        <a href="/fuelstation/fuel-client/{{$more_info->id}}" type="button" class="btn btn-success">Fuel</a>
+                                        <a href="/fuelstation/fuel-client/{{$more_info->id}}" type="button" class="btn btn-success">Credit</a>
                                         </p>
                                     </div>
                                 </div>
@@ -142,7 +153,6 @@
                                 <div class="card text-center">
                                     <div class="card-body">
                                         <h4 class="card-title"><b>Pay Debt</b></h4>
-                                        <p class="card-text"><button type="button" class="btn btn-success">Float Ugshs:{{ number_format(auth()->user()->actualFloat())}} </button></p>
                                         <p>
                                         <a href="/fuelstation/clear-debt/{{$more_info->id}}" type="button" class="btn btn-success">Pay</a>
                                         </p>

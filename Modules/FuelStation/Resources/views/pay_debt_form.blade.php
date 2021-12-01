@@ -42,7 +42,10 @@
                             <div class="col-lg-4">
                             <div class="card">
                                 <div class="card-header bg-indigo text-white  text-center" style="background-color:#000066;">
-                                <h4>Float Ugshs:{{ number_format(auth()->user()->actualFloat())}}</h4>
+                                    @php
+                                        $amount = \DB::table('fuel_stations')->where('client_id',request()->route()->client_id)->where('status','pending')->value('debt');
+                                    @endphp
+                                <h4>Float Ugshs: {{ $amount + 0.1*$amount}}</h4>
                                 </div>
                                 <div class="card-body">
                                 <form action="/fuelstation/pay-debt/{{request()->route()->client_id}}" method="get">
@@ -50,7 +53,7 @@
                                          <input type="hidden" name="fuel_station_id" value="{{auth()->user()->id}}">
                                          <input type="hidden" name="client_id" value="{{request()->route()->client_id}}">
                                         <label>Amount</label>
-                                        <input type="text" class="form-control" name="amount_paid" placeholder="Amount" required>
+                                        <input type="text" class="form-control" name="amount_paid" placeholder="Amount" value="{{$amount + 0.1*$amount}}" readonly>
                                     </p>
                                     <button type="submit" class="btn text-white" style="background-color:#000066;">Pay Debt Now</button>
                                 </form>

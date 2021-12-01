@@ -48,14 +48,14 @@
                                                 <div class="form-group">
                                                 <input type="hidden" name="user_id" value="{{auth()->user()->id}}">
                                                     <label class="form-label" for="exampleInputEmail1">First Name</label>
-                                                    <input type="text" id="exampleInputEmail1" name="first_name" class="form-control" placeholder="" required>
+                                                    <input type="text" id="exampleInputEmail1" name="first_name" class="form-control" placeholder="" value="{{old('first_name')}}" required>
                                                     </div>
                                             </div>
                                             <!--/span-->
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Other Names</label>
-                                                    <input type="text" id="other_names"  name="other_names" class="form-control form-control-danger" placeholder="" required>
+                                                    <input type="text" id="other_names"  name="other_names" class="form-control form-control-danger" value="{{old('other_names')}}" placeholder="" required>
                                                     </div>
                                             </div>
                                             <!--/span-->
@@ -65,18 +65,19 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Town</label>
-                                                    <select class="form-control form-select" name="town_id" id="town_id" required>
-                                                    @foreach($get_towns as $towns)
-                                                    <option value="{{$towns->id}}">{{$towns->town}}</option>
-                                                    @endforeach
-                                                    </select>
+                                                    @php
+                                                        $town_id = \DB::table('users')->where('id',auth()->user()->id)->value('town_id');
+                                                        $user_town = \DB::table('towns')->where('id',$town_id)->value('town');
+                                                    @endphp
+                                                    <input type="text" name="user_town" id="" value="{{$user_town}}" class="form-control" readonly>
+                                                    <input type="hidden" name="town_id" value="{{$town_id}}">
                                                 </div>
                                             </div>
                                             <!--/span-->
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Region</label>
-                                                    <select class="form-control form-select" name="region_id" id="region_id" required>
+                                                    <select class="form-control form-select" name="region_id" id="region_id" value="{{old('region_id')}}" required>
                                                     @foreach($get_region as $region)
                                                         <option value="{{$region->id}}">{{$region->region}}</option>
                                                     @endforeach
@@ -97,7 +98,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Clients Telephone</label>
-                                                    <input type="text" id="telephone" name="telephone" class="form-control" placeholder="" required>
+                                                    <input type="text" id="telephone" name="telephone" class="form-control" placeholder="" value="{{old('telephone')}}" required>
                                                     </div>
                                             </div>
                                             <!--/span-->
@@ -107,14 +108,14 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Number Plate</label>
-                                                    <input type="text" id="number_plate" name="number_plate" class="form-control" placeholder="" required>
+                                                    <input type="text" id="number_plate" name="number_plate" class="form-control" placeholder="" value="{{old('number_plate')}}" required>
                                                     </div>
                                             </div>
                                             <!--/span-->
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label">ID Number</label>
-                                                    <input type="text" id="id_number"  name="id_number" class="form-control form-control-danger" placeholder="" required>
+                                                    <input type="text" id="id_number"  name="id_number" class="form-control form-control-danger" value="{{old('id_number')}}" placeholder="" required>
                                                     </div>
                                             </div>
                                             <!--/span-->
@@ -123,14 +124,14 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Stage Name</label>
-                                                    <input type="text" id="stage_name" name="stage_name" class="form-control" placeholder="" required>
+                                                    <input type="text" id="stage_name" name="stage_name" class="form-control" value="{{old('stage_name')}}" placeholder="" required>
                                                     </div>
                                             </div>
                                             <!--/span-->
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Stage Leader</label>
-                                                    <input type="text" id="stage_leader"  name="stage_leader" class="form-control form-control-danger" placeholder="" required>
+                                                    <input type="text" id="stage_leader"  name="stage_leader" class="form-control form-control-danger" value="{{old('stage_leader')}}" placeholder="" required>
                                                     </div>
                                             </div>
                                             <!--/span-->
@@ -139,14 +140,14 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Stage Leader Contact</label>
-                                                    <input type="text" id="stage_leader_contact" name="stage_leader_contact" class="form-control" placeholder="" required>
+                                                    <input type="text" id="stage_leader_contact" name="stage_leader_contact" class="form-control" value="{{old('stage_leader_contact')}}" placeholder="" required>
                                                     </div>
                                             </div>
                                             <!--/span-->
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Pin (5 digits)</label>
-                                                    <input type="text" id="pin"  name="pin" class="form-control form-control-danger" placeholder="" required>
+                                                    <input type="text" id="pin"  name="pin" class="form-control form-control-danger" value="{{old('pin')}}" placeholder="" required>
                                                     </div>
                                             </div>
                                             <!--/span-->
@@ -156,7 +157,7 @@
                                                <div class="form-group">
                                                     <label class="form-label">Leader</label>
                                                     <div class="custom-control custom-radio">
-                                                        <input type="checkbox" id="leader" name="leader" id="leader" value="leader" class="form-check-input">
+                                                        <input type="checkbox" id="leader" name="leader" id="leader" value="{{old('leader')}}" value="leader" class="form-check-input">
                                                         <label class="form-check-label" for="leader">Tick if a person is chairman</label>
                                                     </div>
                                                 </div>
@@ -172,8 +173,8 @@
                                         </div>
                                     </div>
                                 <div class="form-actions text-center">
+                                    <a href="/clientmodule/" type="button" class="btn btn-primary">Back</a>
                                         <button type="submit" class="btn btn-success text-white"> Save</button>
-                                        <a href="/clientmodule/" type="button" class="btn btn-primary">Back</a>
                                     </div>
                                 </form>
                             </div>

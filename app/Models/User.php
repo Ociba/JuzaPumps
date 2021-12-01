@@ -73,7 +73,7 @@ class User extends Authenticatable
     public function countTodaysRiders(){
         $count_todays_riders =DB::table('clients')
         ->where('clients.deleted_at',null)
-        ->where('clients.created_at','>=',Carbon::today())->count();
+        ->whereDate('created_at',Carbon::today())->count();
         return $count_todays_riders;
     }
     /** 
@@ -139,28 +139,26 @@ class User extends Authenticatable
      */
     public function getThisCurrentWeekRevenue(){
         Carbon::setWeekStartsAt(Carbon::SUNDAY);
-        return DB::table('fuel_stations')->whereBetween('created_at', [Carbon::now()->startOfWeek(),Carbon::now()->endOfWeek()])->sum('amount_paid');
+        return DB::table('charges')->whereBetween('created_at', [Carbon::now()->startOfWeek(),Carbon::now()->endOfWeek()])->sum('charge');
     }
     /** ->where('user_id',$this->id)
      * This function gets amount paid this month
     */
     public function getThisCurrentMonthRevenue(){
-         return DB::table('fuel_stations')->whereMonth('created_at', date('m'))
-         ->whereYear('created_at', date('Y'))->sum('amount_paid');
+        return DB::table('charges')->whereMonth('created_at', date('m'))->whereYear('created_at', date('Y'))->sum('charge');
     }
     /** 
      * This function gets current amount paid this year
     */
     public function getThisYearsRevenue(){
-        return DB::table('fuel_stations')->whereYear('created_at', date('Y'))->sum('amount_paid');
+        return DB::table('charges')->whereYear('created_at', date('Y'))->sum('charge');
     }
     public function getEnforcement(){
         //day of creation is created at after 11 days
         //last day of defaulting is day of creation plus 10
         $last_11_days = FuelStation::where('created_at','>=',Carbon::now()->subdays(4))->count();
         
-       return FuelStation::whereNotNull('debt')->where('status','pending')->whereDay('created_at','>=',"+'' day")->count();
-       
+        return FuelStation::whereNotNull('debt')->where('status','pending')->whereDay('created_at','>=',"+'' day")->count();
         //$all= Client::where('created_at',[$start_date, $last_11_days])->get();
         //dd($last_11_days);
     }
