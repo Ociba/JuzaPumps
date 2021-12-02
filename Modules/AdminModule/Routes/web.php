@@ -39,5 +39,6 @@ Route::prefix('adminmodule')->group(function() {
     Route::get('/field-staff','AdminModuleController@getFieldStaff')->name('Field Staff');
     Route::get('/get-towns-with-revenue','AdminModuleController@getFuelStationsRevenue')->name('Towns');
     Route::get('/view-town-revenue/{fuel_station_id}','AdminModuleController@revenueCalculationsPerTown')->name('Revenue Per Town');
+    Route::get('/search-by-data-range','ReportController@searchByDate')->name('Revenue');
     
 });

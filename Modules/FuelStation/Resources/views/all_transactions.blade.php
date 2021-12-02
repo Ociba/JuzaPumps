@@ -74,17 +74,18 @@
                                                 <th>Debt</th> 
                                                 <th>Days Left</th>
                                                 <th>Created on</th>
+                                                <th>Amount Paid (shs)</th>
                                                 <th>Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                           @foreach($all_debts as $i =>$fuel_station)
+                                           @foreach($all_transactions as $i =>$fuel_station)
                                             <tr>
                                             @php
-                                                if( $all_debts->currentPage() == 1){
+                                                if( $all_transactions->currentPage() == 1){
                                                     $i = $i+1;
                                                 }else{
-                                                    $i = ($i+1) + 10*($all_debts->currentPage()-1);
+                                                    $i = ($i+1) + 10*($all_transactions->currentPage()-1);
                                                 }
                                             @endphp
                                             <th scope="row">{{$i}}</th> 
@@ -93,9 +94,10 @@
                                                 <td>{{$fuel_station->stage_name}}</td>
                                                 <td>{{$fuel_station->stage_leader}}</td>
                                                 <td>{{$fuel_station->stage_leader_contact}}</td> 
-                                                <td>{{number_format($fuel_station->debt + $fuel_station->debt * 0.1)}} /=</td>
+                                                <td>shs.{{number_format($fuel_station->debt + $fuel_station->debt * 0.1)}} </td>
                                                 <td>{{\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse($fuel_station->days))}}</td>
                                                 <td>{{$fuel_station->created_at}}</td> 
+                                                <td>{{ number_format($fuel_station->amount_paid)}}</td>
                                                 <td>{{$fuel_station->status}}</td> 
                                             </tr>
                                             @endforeach
@@ -104,7 +106,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="text-end ml-2">
-                                        {{$all_debts->links()}}
+                                        {{$all_transactions->links()}}
                                     </div>
                                 </div>
                             </div>

@@ -41,13 +41,13 @@
                             <div class="card-body">
                                 <div class="card-title">
                                 <div class="row">
-                                <div class="col-lg-4">
+                                <div class="col-lg-6">
                                    A table showing {{request()->route()->getName()}}
                                 </div>
-                                <div class="col-lg-4 mb-2">
+                                <div class="col-lg-2 mb-2">
                                 </div>
                                 <div class=" col-lg-4">
-                                    <form action="/reportmodule/search-pending-debts" method="get">
+                                   <form action="/reportmodule/search-todays-revenue" method="get">
                                         <div class="input-group mb-3">
                                                 <input type="text" class="form-control" name="number_plate" placeholder="Search Number Plate" aria-label="" aria-describedby="basic-addon1">
                                                 <div class="input-group-append">
@@ -58,40 +58,35 @@
                                 </div>
                                 </div>
                                 </div>
-                                <div class="row mb-2">
-                                 <span style="color:blue; font-weight:bold;">Pending Debts: shs. {{number_format($total_debt)}}</span>
-                                </div>
                                 <div class="table-responsive">
                                     <table class="table table-bordered">
                                         <thead>
                                             <tr style="text-transform: uppercase;font-weight:bold;font-family: Times New Roman, Times, serif;">
                                                 <th>#</th>
                                                 <th>First Name</th> 
-                                                <th>Other Names</th>
-                                                <th>No. Plate</th> 
-                                                <th>Amount</th>
-                                                <th>Debt Status</th>
-                                                <th>Created At</th>
+                                                <th>Other Names</th> 
+                                                <th>Telephone</th> 
+                                                <th>Number Plate</th> 
+                                                <th>Amount</th> 
                                                 <th>Option</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                           @foreach($get_all_client_with_pending_payments as $i =>$riders)
+                                           @foreach($get_todays_revenue as $i =>$riders)
                                             <tr>
                                             @php
-                                                if( $get_all_client_with_pending_payments->currentPage() == 1){
+                                                if( $get_todays_revenue->currentPage() == 1){
                                                     $i = $i+1;
                                                 }else{
-                                                    $i = ($i+1) + 10*($get_all_client_with_pending_payments->currentPage()-1);
+                                                    $i = ($i+1) + 10*($get_todays_revenue->currentPage()-1);
                                                 }
                                             @endphp
                                             <th scope="row">{{$i}}</th> 
                                                 <td>{{$riders->other_names}}</td> 
-                                                <td>{{$riders->first_name}}</td>  
+                                                <td>{{$riders->first_name}}</td> 
+                                                <td>{{$riders->telephone}}</td> 
                                                 <td>{{$riders->number_plate}}</td> 
-                                                <td>{{ number_format($riders->charge)}} /=</td>
-                                                <td>{{ $riders->status}}</td>
-                                                <td>{{$riders->created_at}}</td> 
+                                                <td>{{ number_format($riders->charge)}} /=</td> 
                                                 <td>
                                                     <a href="/clientmodule/view-more/{{$riders->id}}" class="btn btn-info btn-sm waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="View More Information">View</a>
                                                 </td>
@@ -102,7 +97,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="text-end ml-2">
-                                        {{$get_all_client_with_pending_payments->links()}}
+                                        {{$get_todays_revenue->links()}}
                                     </div>
                                 </div>
                             </div>

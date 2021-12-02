@@ -39,62 +39,69 @@
                     @include('layouts.messages')
                     <div class="card">
                             <div class="card-body">
-                                <div class="card-title">
-                                <div class="row">
-                                <div class="col-lg-4">
-                                   A table showing {{request()->route()->getName()}}
-                                </div>
-                                <div class="col-lg-4 mb-2">
-                                </div>
-                                <div class=" col-lg-4">
-                                    <form action="/reportmodule/search-pending-debts" method="get">
-                                        <div class="input-group mb-3">
-                                                <input type="text" class="form-control" name="number_plate" placeholder="Search Number Plate" aria-label="" aria-describedby="basic-addon1">
-                                                <div class="input-group-append">
-                                                    <button class="btn btn-info btn-lg text-white" type="submit">Search</button>
+                            <form action="/fuelstation/search-by-data-range" method="get">
+                                        <div class="row">
+                                        <div class=" col-lg-5">
+                                            <div class="example mb-2">
+                                                <div class="input-group">
+                                                <label>From</label>
+                                                    <input type="date" class="form-control mydatepicker" name="from_date" placeholder="mm/dd/yyyy">
                                                 </div>
-                                        </div>
+                                            </div>
+                                       </div>
+                                       <div class=" col-lg-5">
+                                            <div class="example mb-2">
+                                                <div class="input-group">
+                                                    <label>To</label>
+                                                    <input type="date" class="form-control mydatepicker" name="to_date" placeholder="mm/dd/yyyy">
+                                                </div>
+                                            </div>
+                                       </div>
+                                       <div class=" col-lg-2">
+                                            <div class="example">
+                                                        <div class="input-group-append">
+                                                    <button class="btn btn-info btn-sm form-control text-white" type="submit">Search</button>
+                                                </div>
+                                            </div>
+                                       </div>
+                                    </div>
                                     </form>
-                                </div>
-                                </div>
-                                </div>
-                                <div class="row mb-2">
-                                 <span style="color:blue; font-weight:bold;">Pending Debts: shs. {{number_format($total_debt)}}</span>
-                                </div>
                                 <div class="table-responsive">
                                     <table class="table table-bordered">
                                         <thead>
                                             <tr style="text-transform: uppercase;font-weight:bold;font-family: Times New Roman, Times, serif;">
                                                 <th>#</th>
-                                                <th>First Name</th> 
-                                                <th>Other Names</th>
-                                                <th>No. Plate</th> 
-                                                <th>Amount</th>
-                                                <th>Debt Status</th>
-                                                <th>Created At</th>
-                                                <th>Option</th>
+                                                <th>Client</th> 
+                                                <th>Number Plate</th>
+                                                <th>Stage</th>
+                                                <th>Stage Leader</th>
+                                                <th>Stage Leader Contact</th>
+                                                <th>Debts (sh)</th>  
+                                                <th>Amount Paid (shs)</th> 
+                                                <th>Paid On</th>
+                                                <th>Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                           @foreach($get_all_client_with_pending_payments as $i =>$riders)
+                                           @foreach($all_transactions as $i =>$fuel_station)
                                             <tr>
                                             @php
-                                                if( $get_all_client_with_pending_payments->currentPage() == 1){
+                                                if( $all_transactions->currentPage() == 1){
                                                     $i = $i+1;
                                                 }else{
-                                                    $i = ($i+1) + 10*($get_all_client_with_pending_payments->currentPage()-1);
+                                                    $i = ($i+1) + 10*($all_transactions->currentPage()-1);
                                                 }
                                             @endphp
                                             <th scope="row">{{$i}}</th> 
-                                                <td>{{$riders->other_names}}</td> 
-                                                <td>{{$riders->first_name}}</td>  
-                                                <td>{{$riders->number_plate}}</td> 
-                                                <td>{{ number_format($riders->charge)}} /=</td>
-                                                <td>{{ $riders->status}}</td>
-                                                <td>{{$riders->created_at}}</td> 
-                                                <td>
-                                                    <a href="/clientmodule/view-more/{{$riders->id}}" class="btn btn-info btn-sm waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="View More Information">View</a>
-                                                </td>
+                                                <td>{{$fuel_station->other_names}} {{$fuel_station->first_name}}</td> 
+                                                <td>{{$fuel_station->number_plate}}</td> 
+                                                <td>{{$fuel_station->stage_name}}</td>
+                                                <td>{{$fuel_station->stage_leader}}</td>
+                                                <td>{{$fuel_station->stage_leader_contact}}</td> 
+                                                <td>{{ number_format($fuel_station->debt)}}</td> 
+                                                <td>{{number_format($fuel_station->amount_paid)}}</td> 
+                                                <td>{{$fuel_station->created_at}}</td> 
+                                                <td>{{$fuel_station->status}}</td> 
                                             </tr>
                                             @endforeach
                                         </tbody>
@@ -102,7 +109,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="text-end ml-2">
-                                        {{$get_all_client_with_pending_payments->links()}}
+                                        {{$all_transactions->links()}}
                                     </div>
                                 </div>
                             </div>

@@ -67,6 +67,10 @@
                                                         <input type="radio" id="customRadio22" name="category" value="staff" class="form-check-input">
                                                         <label class="form-check-label" for="customRadio22">Field Staff</label>
                                                     </div>
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" id="customRadio23" name="category" value="admin" class="form-check-input">
+                                                        <label class="form-check-label" for="customRadio23">Admin</label>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <!--/span-->

@@ -15,10 +15,10 @@ class ClientFormRequest extends FormRequest
     {
         return [
             'user_id'               => '',
-            'id_number'             => 'unique:clients|max:255',
-            'number_plate'          => 'unique:clients|max:255',
-            'telephone'             => 'unique:clients|max:255',
-            'pin'                   => 'unique:clients|max:255',
+            'id_number'             => 'max:255',
+            'number_plate'          => 'max:255',
+            'telephone'             => 'max:255',
+            'pin'                   => 'max:255',
             'first_name'            => 'max:20',
             'other_names'           => 'max:10',
             'town_id'               => 'max:400',

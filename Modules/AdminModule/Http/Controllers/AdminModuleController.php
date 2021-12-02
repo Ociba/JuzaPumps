@@ -211,16 +211,15 @@ class AdminModuleController extends Controller
     }
     /** 
      * This function gets all revenue
-     *search using data range
     */
     protected function getRevenue(){
-    $get_all_client_payments =DB::table('fuel_stations')->join('users','fuel_stations.user_id','users.id')
-    ->join('clients','fuel_stations.client_id','clients.id')
-    ->whereNotnull('fuel_stations.amount_paid')
-    ->select('clients.*','fuel_stations.amount_paid','fuel_stations.created_at')
+    $get_all_client_payments =DB::table('charges')
+    ->join('clients','charges.client_id','clients.id')
+    ->where('charges.status','paid')
+    ->select('clients.*','charges.charge','charges.created_at')
     ->simplePaginate(10);
     //get sum of money collected
-    $get_total_revenue_collected= DB::table('fuel_stations')->sum('amount_paid');
+    $get_total_revenue_collected= DB::table('charges')->where('status','paid')->sum('charge');
     return view('adminmodule::revenue',compact('get_all_client_payments','get_total_revenue_collected'));
     }
 
@@ -228,16 +227,12 @@ class AdminModuleController extends Controller
     * This function gets all clients with pending debts
     */
     protected function getPendingClients(){
-    $charge = \DB::table('charges')->where('status','pending')->sum('charge');
-    $debts = \DB::table('fuel_stations')->where('status','pending')->sum('debt');
-    $total_debt = $charge + $debts;
-
-    $get_all_client_with_pending_payments =DB::table('fuel_stations')->join('users','fuel_stations.user_id','users.id')
-    ->join('clients','fuel_stations.client_id','clients.id')
-    ->whereNotNull('fuel_stations.debt')
-    ->where('fuel_stations.status','pending')
-    ->select('clients.*','fuel_stations.debt','users.name','fuel_stations.created_at')
-    ->simplePaginate(10);
+    $total_debt = \DB::table('charges')->where('status','pending')->sum('charge');
+    $get_all_client_with_pending_payments=DB::table('charges')
+        ->join('clients','charges.client_id','clients.id')
+        ->where('charges.status','pending')
+        ->select('clients.*','charges.charge','charges.created_at','charges.status')
+       ->simplePaginate(10);
     return view('adminmodule::pending_debts',compact('get_all_client_with_pending_payments','total_debt')); 
     }
 
@@ -271,9 +266,7 @@ class AdminModuleController extends Controller
      */
     protected function revenueCalculationsPerTown($fuel_station_id){
     $charge = \DB::table('charges')->where('fuel_station_id',$fuel_station_id)->where('status','pending')->sum('charge');
-    $total_debts =DB::table('fuel_stations')->where('user_id',$fuel_station_id)->where('status','pending')->sum('debt');
-    $actual_debt=$charge + $total_debts;
-    $total_amount_paid =DB::table('fuel_stations')->where('user_id',$fuel_station_id)->where('status','paid')->sum('amount_paid');
-    return view('adminmodule::town_revenue',compact('actual_debt','total_amount_paid'));
+    $total_amount_paid =DB::table('charges')->where('fuel_station_id',$fuel_station_id)->where('status','paid')->sum('charge');
+    return view('adminmodule::town_revenue',compact('charge','total_amount_paid'));
     }
 }

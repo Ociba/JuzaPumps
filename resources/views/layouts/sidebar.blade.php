@@ -6,7 +6,7 @@
             <ul id="sidebarnav">
                 <li class="user-pro"> <a class="waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><img style="border-radius:50%; width:40px; height:40px;" src="{{asset('user_photos/'.auth()->user()->getLoggedInUserLogo())}}"  alt="user-img" class="img-circle"><span class="hide-menu">{{auth()->user()->name}}</span></a>
                 </li>
-                @if(in_array('Can view admin sidebar', auth()->user()->getUserPermisions()))
+                @if(auth()->user()->category =='admin')
                 <li> <a class="waves-effect waves-dark" href="/dashboard" aria-expanded="false"><i class="ti-home"></i><span class="hide-menu">Dashboard</span></a></li>
                 <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-user"></i><span class="hide-menu">Clients</span></a>
                     <ul aria-expanded="false" class="collapse">
@@ -65,8 +65,8 @@
                 </li>
                 <li> <a class="waves-effect waves-dark" href="/reportmodule/field-staff" aria-expanded="false"><i class="ti-user"></i><span class="hide-menu">Field Staff</span></a></li>
                 <li> <a class="waves-effect waves-dark" href="/adminmodule/initial-deposit" aria-expanded="false"><i class="ti-settings"></i><span class="hide-menu">Initial Deposits</span></a></li>
-                @endif
-                @if(in_array('Can View field staff sidebar', auth()->user()->getUserPermisions()))
+                
+                @elseif(auth()->user()->category =='staff')
                 <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-user"></i><span class="hide-menu">Clients</span></a>
                     <ul aria-expanded="false" class="collapse">
                         <li> <a class="waves-effect waves-dark" href="/clientmodule/"><span class="hide-menu"> All Clients</span></a>
@@ -79,27 +79,31 @@
                         </li>
                      </ul>
                  </li>
+                 <li> <a class="waves-effect waves-dark" href="/clientmodule/list_of_debtors"><i class=" ti-file"></i><span class="hide-menu"> Debtors</span></a>
+                </li>
                  <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-book"></i><span class="hide-menu"> Transactions</span></a>
                     <ul aria-expanded="false" class="collapse">
-                        <li> <a class="waves-effect waves-dark" href="/clientmodule/get-todays-debt"><span class="hide-menu"> Todays Debts</span></a></li>
-                        <li> <a class="waves-effect waves-dark" href="/clientmodule/get-todays-payments"><span class="hide-menu"> Todays Payments</span></a></li>
-                        <li> <a class="waves-effect waves-dark" href="/clientmodule/all-debts"><span class="hide-menu"> All Debts</span></a></li>
-                        <li> <a class="waves-effect waves-dark" href="/clientmodule/all-payments"><span class="hide-menu"> All Payments</span></a></li>
-                        <li> <a class="waves-effect waves-dark" href="/clientmodule/overdue-debts"><span class="hide-menu"> Overdue Debts</span></a></li>
+                        <li> <a class="waves-effect waves-dark" href="/clientmodule/get-todays-transactions"><span class="hide-menu"> Today</span></a></li>
+                        <li> <a class="waves-effect waves-dark" href="/clientmodule/daily-transactions"><span class="hide-menu"> Daily</span></a></li>
+                        <li> <a class="waves-effect waves-dark" href="/clientmodule/date-range-transactions"><span class="hide-menu"> Date Range</span></a></li>
                      </ul>
                 </li>
-                @endif
-                 
-                @if(in_array('Can View fuel station sidebar', auth()->user()->getUserPermisions()))
+                <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-save-alt"></i><span class="hide-menu"> Report</span></a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li> <a class="waves-effect waves-dark" href="/clientmodule/todays-report"><span class="hide-menu"> Today</span></a></li>
+                        <li> <a class="waves-effect waves-dark" href="/clientmodule/daily-report"><span class="hide-menu"> Daily</span></a></li>
+                        <li> <a class="waves-effect waves-dark" href="/clientmodule/date-range-report"><span class="hide-menu"> Date Range</span></a></li>
+                     </ul>
+                </li>
+                @else(auth()->user()->category =='fuel_station')
                 <li> <a class="waves-effect waves-dark" href="/fuelstation/initial-deposit" aria-expanded="false"><i class="ti-settings"></i><span class="hide-menu">Initial Deposits</span></a></li>
                 
                 <li> <a class="waves-effect waves-dark" href="/fuelstation/search-client" aria-expanded="false"><i class="ti-search"></i><span class="hide-menu">Search Client</span></a></li>
                 <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-book"></i><span class="hide-menu"> Transactions</span></a>
                     <ul aria-expanded="false" class="collapse">
-                        <li> <a class="waves-effect waves-dark" href="/fuelstation/get-todays-debt"><span class="hide-menu"> Todays Debts</span></a></li>
-                        <li> <a class="waves-effect waves-dark" href="/fuelstation/get-todays-payments"><span class="hide-menu"> Todays Payments</span></a></li>
-                        <li> <a class="waves-effect waves-dark" href="/fuelstation/all-debts"><span class="hide-menu"> All Debts</span></a></li>
-                        <li> <a class="waves-effect waves-dark" href="/fuelstation/all-payments"><span class="hide-menu"> All Payments</span></a></li>
+                        <li> <a class="waves-effect waves-dark" href="/fuelstation/get-todays-transactions"><span class="hide-menu"> Today</span></a></li>
+                        <li> <a class="waves-effect waves-dark" href="/fuelstation/all-transactions"><span class="hide-menu"> Daily</span></a></li>
+                        <li> <a class="waves-effect waves-dark" href="/fuelstation/data-range-transactions"><span class="hide-menu"> Data Range</span></a></li>
                     </ul>
                 </li>
                 <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-move"></i><span class="hide-menu"> Reports</span></a>

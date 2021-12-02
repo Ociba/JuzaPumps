@@ -68,30 +68,32 @@
                                                 <th>Stage</th>
                                                 <th>Stage Leader</th>
                                                 <th>Stage Leader Contact</th>
-                                                <th>Debts</th> 
-                                                <th>Days Left</th>
+                                                <th>Debt</th>
+                                                <th>Created On</th>
+                                                <th>Days Left</th> 
                                                 <th>Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                           @foreach($get_all_debts as $i =>$debts)
+                                           @foreach($list_of_debtors as $i =>$fuel_station)
                                             <tr>
                                             @php
-                                                if( $get_all_debts->currentPage() == 1){
+                                                if( $list_of_debtors->currentPage() == 1){
                                                     $i = $i+1;
                                                 }else{
-                                                    $i = ($i+1) + 10*($get_all_debts->currentPage()-1);
+                                                    $i = ($i+1) + 10*($list_of_debtors->currentPage()-1);
                                                 }
                                             @endphp
                                             <th scope="row">{{$i}}</th> 
-                                                <td>{{$debts->other_names}} {{$debts->first_name}}</td> 
-                                                <td>{{$debts->number_plate}}</td> 
-                                                <td>{{$debts->stage_name}}</td>
-                                                <td>{{$debts->stage_leader}}</td>
-                                                <td>{{$debts->stage_leader_contact}}</td>
-                                                <td>shs. {{number_format($debts->debt + $debts->debt * 0.1)}}</td> 
-                                                <td>{{\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse($debts->days))}}</td> 
-                                                <td>{{$debts->status}}</td> 
+                                               <td>{{$fuel_station->other_names}} {{$fuel_station->first_name}}</td> 
+                                                <td>{{$fuel_station->number_plate}}</td> 
+                                                <td>{{$fuel_station->stage_name}}</td>
+                                                <td>{{$fuel_station->stage_leader}}</td>
+                                                <td>{{$fuel_station->stage_leader_contact}}</td>
+                                                <td>shs.{{number_format($fuel_station->debt + $fuel_station->debt * 0.1)}} </td>
+                                                <td>{{$fuel_station->created_at}}</td> 
+                                                <td>{{\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse($fuel_station->days))}}</td>
+                                                <td>{{$fuel_station->status}}</td> 
                                             </tr>
                                             @endforeach
                                         </tbody>
@@ -99,7 +101,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="text-end ml-2">
-                                        {{$get_all_debts->links()}}
+                                        {{$list_of_debtors->links()}}
                                     </div>
                                 </div>
                             </div>

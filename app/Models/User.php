@@ -141,11 +141,11 @@ class User extends Authenticatable
         Carbon::setWeekStartsAt(Carbon::SUNDAY);
         return DB::table('charges')->whereBetween('created_at', [Carbon::now()->startOfWeek(),Carbon::now()->endOfWeek()])->sum('charge');
     }
-    /** ->where('user_id',$this->id)
+    /** 
      * This function gets amount paid this month
     */
     public function getThisCurrentMonthRevenue(){
-        return DB::table('charges')->whereMonth('created_at', date('m'))->whereYear('created_at', date('Y'))->sum('charge');
+        return DB::table('charges')->whereMonth('created_at', Carbon::now()->month)->sum('charge');
     }
     /** 
      * This function gets current amount paid this year
@@ -207,20 +207,23 @@ class User extends Authenticatable
     /** 
      * This function gets sum expected amount as debts
     */
-    public function totalDebts(){
-        return FuelStation::where('status','pending')->sum('debt');
+    public function totalInitialFloats(){
+        return DB::table('initial_floats')->sum('float');
     }
     /** 
      * This function gets sum of amount paid
     */
-    public function totalCurrentAmountPaid(){
-        return FuelStation::where('status','paid')->sum('amount_paid');
+    public function totalRevenue(){
+        return DB::table('charges')->where('status','paid')->sum('charge');
     }
       /** 
      * This function gets gets amount not paid
     */
-    public function totalAmountNotPaid(){
-        return $this->totalDebts()-$this->totalCurrentAmountPaid();
+    public function totalDebts(){
+        $debts =DB::table('fuel_stations')->where('status','pending')->sum('debt');
+        $charge =DB::table('charges')->where('status','pending')->sum('charge');
+        $total_debts =$debts + $charge;
+        return $total_debts;
     }
     /** 
      * This function gets float for partucular station

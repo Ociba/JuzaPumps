@@ -59,7 +59,7 @@
                                 </div>
                                 </div>
                                 <div class="row mb-2">
-                                 <span style="color:blue; font-weight:bold;">Pending Debts: shs. {{number_format($total_debt)}} /=</span>
+                                 <span style="color:blue; font-weight:bold;">Pending Debts: shs. {{number_format($charge)}} /=</span>
                                 </div>
                                 <div class="table-responsive">
                                     <table class="table table-bordered">
@@ -69,11 +69,10 @@
                                                 <th>First Name</th> 
                                                 <th>Other Names</th>
                                                 <th>No. Plate</th> 
-                                                <th>F.Station</th>
-                                                <th>Debt</th>
+                                                <th>Charge</th>
                                                 <th>Days Left</th> 
                                                 <th>Created At</th>
-                                                <th>Option</th>
+                                                <th>Optio</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -89,10 +88,9 @@
                                             <th scope="row">{{$i}}</th> 
                                                 <td>{{$riders->other_names}}</td> 
                                                 <td>{{$riders->first_name}}</td>  
-                                                <td>{{$riders->number_plate}}</td> 
-                                                <td>{{$riders->name}}</td> 
-                                                <td>{{number_format($riders->debt + $riders->debt * 0.1)}} /=</td><td></td>
-                                                {{--<td>{{\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse($riders->days))}}</td>--}}  
+                                                <td>{{$riders->number_plate}}</td>
+                                                <td>{{number_format($riders->charge )}} /=</td>
+                                                <td>{{\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse($riders->days))}}</td>  
                                                 <td>{{$riders->created_at}}</td> 
                                                 <td>
                                                     <a href="/clientmodule/view-more/{{$riders->id}}" class="btn btn-info btn-sm waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="View More Information">View</a>

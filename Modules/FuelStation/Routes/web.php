@@ -23,11 +23,11 @@ Route::group(['prefix'=>'fuelstation', 'middleware'=>['auth']],function(){
     Route::get('/pay-debt/{client_id}','FuelStationController@payDebt');
     Route::get('/initial-deposit','FuelStationController@initialDeposits')->name('My Fuel Station Initial Deposit');
 
-    Route::get('/get-todays-debt','TransactionController@todaysDebts')->name('Todays Debts');
-    Route::get('/get-todays-payments','TransactionController@todaysPayments')->name('Todays Payments');
-    Route::get('/all-debts','TransactionController@allDebts')->name('All Debts');
-    Route::get('/all-payments','TransactionController@allPayments')->name('All Payments');
+    Route::get('/get-todays-transactions','TransactionController@todaysTransactions')->name('Todays Debts');
+    Route::get('/all-transactions','TransactionController@allTransactions')->name('All Transactions');
+    Route::get('/data-range-transactions','TransactionController@dataRangeTransactions')->name('Data Range Transactions');
     Route::get('/clients','FuelStationController@RegisteredFuelStatinClients')->name('Clients Registered In This Fuel Station');
+    Route::get('/search-by-data-range','TransactionController@searchByDate')->name('Searched Transactions');
 
     Route::get('/todays-revenue', 'ReportController@todayRevenue')->name('Transaction Report Summary Today');
     Route::get('/all-revenue','ReportController@getRevenue')->name('All Revenue');

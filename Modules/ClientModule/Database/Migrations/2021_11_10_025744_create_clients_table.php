@@ -32,7 +32,7 @@ class CreateClientsTable extends Migration
             $table->string('date_paid')->nullable();
             $table->string('days');
             $table->string('profile_photo_path');
-            $table->enum('status',['pending','overdue','cleared'])->default('pending');
+            $table->enum('status',['active','pending','overdue','cleared'])->default('active');
             $table->softDeletes();
             $table->timestamps();
         });

@@ -121,8 +121,8 @@
                                             <!--/span-->
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="form-label">Amount (Debt)</label>
-                                                    <input type="text" id="debt"  name="debt" value="{{$edit_info->debt}}" class="form-control form-control-danger" placeholder="">
+                                                    <label class="form-label">Pin</label>
+                                                    <input type="text" id="pin"  name="pin" value="{{$edit_info->pin}}" class="form-control form-control-danger" placeholder="">
                                                     </div>
                                             </div>
                                             <!--/span-->

@@ -43,7 +43,7 @@
                                 <h4>Debts</h4>
                                 </div>
                                 <div class="card-body">
-                                {{number_format($actual_debt)}} /=
+                                {{number_format($charge)}} /=
                                 </div>
                             </div>
                              </div>

@@ -68,30 +68,32 @@
                                                 <th>Stage</th>
                                                 <th>Stage Leader</th>
                                                 <th>Stage Leader Contact</th>
+                                                <th>Debt</th>
                                                 <th>Amount Paid</th> 
                                                 <th>Paid On</th>
                                                 <th>Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                           @foreach($get_all_payments as $i =>$payments)
+                                           @foreach($get_all_transactions as $i =>$fuel_station)
                                             <tr>
                                             @php
-                                                if( $get_all_payments->currentPage() == 1){
+                                                if( $get_all_transactions->currentPage() == 1){
                                                     $i = $i+1;
                                                 }else{
-                                                    $i = ($i+1) + 10*($get_all_payments->currentPage()-1);
+                                                    $i = ($i+1) + 10*($get_all_transactions->currentPage()-1);
                                                 }
                                             @endphp
                                             <th scope="row">{{$i}}</th> 
-                                               <td>{{$payments->other_names}} {{$payments->first_name}}</td> 
-                                                <td>{{$payments->number_plate}}</td> 
-                                                <td>{{$payments->stage_name}}</td>
-                                                <td>{{$payments->stage_leader}}</td>
-                                                <td>{{$payments->stage_leader_contact}}</td>
-                                                <td>{{number_format($payments->amount_paid)}} /=</td> 
-                                                <td>{{$payments->created_at}}</td> 
-                                                <td>{{$payments->status}}</td> 
+                                               <td>{{$fuel_station->other_names}} {{$fuel_station->first_name}}</td> 
+                                                <td>{{$fuel_station->number_plate}}</td> 
+                                                <td>{{$fuel_station->stage_name}}</td>
+                                                <td>{{$fuel_station->stage_leader}}</td>
+                                                <td>{{$fuel_station->stage_leader_contact}}</td>
+                                                <td>shs.{{number_format($fuel_station->debt + $fuel_station->debt * 0.1)}} </td>
+                                                <td>{{number_format($fuel_station->amount_paid)}} /=</td> 
+                                                <td>{{$fuel_station->created_at}}</td> 
+                                                <td>{{$fuel_station->status}}</td> 
                                             </tr>
                                             @endforeach
                                         </tbody>
@@ -99,7 +101,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="text-end ml-2">
-                                        {{$get_all_payments->links()}}
+                                        {{$get_all_transactions->links()}}
                                     </div>
                                 </div>
                             </div>

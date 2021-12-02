@@ -70,8 +70,8 @@
                                                 <th>Other Names</th> 
                                                 <th>Telephone</th> 
                                                 <th>Number Plate</th> 
-                                                <th>Paid Amount</th> 
-                                                <th>Paid On</th>
+                                                <th>Amount Paid</th> 
+                                                <th>Date Paid</th>
                                                 <th>Option</th>
                                             </tr>
                                         </thead>
@@ -90,7 +90,7 @@
                                                 <td>{{$riders->first_name}}</td> 
                                                 <td>{{$riders->telephone}}</td> 
                                                 <td>{{$riders->number_plate}}</td> 
-                                                <td>{{ number_format($riders->amount_paid)}} /=</td> 
+                                                <td>{{ number_format($riders->charge)}} /=</td> 
                                                 <td>{{$riders->created_at}}</td>
                                                 <td>
                                                     <a href="/clientmodule/view-more/{{$riders->id}}" class="btn btn-info btn-sm waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="View More Information">View</a>

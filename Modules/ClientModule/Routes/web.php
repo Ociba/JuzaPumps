@@ -26,9 +26,15 @@ Route::group(['prefix'=>'clientmodule', 'middleware'=>['auth']],function(){
     Route::get('/search-todays-client','ClientModuleController@searchTodaysClient')->name('Searched Client');
     Route::get('/search-trashed-client','ClientModuleController@searchTrashedClient')->name('Searched Client');
 
-    Route::get('/get-todays-debt','TransactionController@todaysDebts')->name('Todays Debts');
-    Route::get('/get-todays-payments','TransactionController@todaysPayments')->name('Todays Payments');
-    Route::get('/all-debts','TransactionController@allDebts')->name('All Debts');
-    Route::get('/all-payments','TransactionController@allPayments')->name('All Payments');
-    Route::get('/overdue-debts','TransactionController@overdue')->name('Overdue Debts');
+    Route::get('/get-todays-transactions','TransactionController@todaysTransactions')->name('Todays Transactions');
+    Route::get('/daily-transactions','TransactionController@dailyTransactions')->name('Daily Transactions');
+    Route::get('/date-range-transactions','TransactionController@DateRangeTransactions')->name('Data Range Transactions');
+    Route::get('/search-by-data-range','TransactionController@searchByDate')->name('Searched Transaction');
+
+
+    Route::get('/todays-report','ReportController@todaysRevenueReport')->name('Todays Revenue');
+    Route::get('/daily-report','ReportController@dailyRevenueReport')->name('Daily Report');
+    Route::get('/date-range-report','ReportController@DateRangeReport')->name('Data Range Report');
+    Route::get('/search-by-data-range','ReportController@searchByDate')->name('Searched Report');
+    Route::get('/list_of_debtors','TransactionController@listOfDebtors')->name('List of Debtors');
 });

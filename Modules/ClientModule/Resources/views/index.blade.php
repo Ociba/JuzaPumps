@@ -89,12 +89,8 @@
                                                 <td>{{$riders->stage_name}}</td> 
                                                 <td>
                                                     <a href="/clientmodule/view-more/{{$riders->id}}" class="btn btn-info btn-sm mb-1 waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="View More Information">View</a>
-                                                    @if(in_array('Can Edit Client', auth()->user()->getUserPermisions()))
                                                     <a href="/clientmodule/edit-riders-info/{{$riders->id}}"  class="btn btn-success mb-1 btn-sm waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="Edit Client Information">Edit</a>
-                                                    @endif
-                                                    @if(in_array('Can Trash Client', auth()->user()->getUserPermisions()))
                                                     <a href="/clientmodule/trash/{{$riders->id}}" class="btn btn-danger btn-sm mb-1 waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="Trash Client">Trash</a>
-                                                    @endif
                                                 </td>
                                             </tr>
                                             @endforeach

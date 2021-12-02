@@ -41,20 +41,20 @@
                             <div class="card-body">
                                 <div class="card-title">
                                 <div class="row">
-                                <div class="col-lg-4">
+                                <div class="col-lg-6">
                                    A table showing {{request()->route()->getName()}}
                                 </div>
-                                <div class="col-lg-4 mb-2">
+                                <div class="col-lg-2 mb-2">
                                 </div>
                                 <div class=" col-lg-4">
-                                   <form action="/clientmodule/search-client" method="get">
+                                   <form action="/reportmodule/search-todays-revenue" method="get">
                                         <div class="input-group mb-3">
                                                 <input type="text" class="form-control" name="number_plate" placeholder="Search Number Plate" aria-label="" aria-describedby="basic-addon1">
                                                 <div class="input-group-append">
                                                     <button class="btn btn-info btn-lg text-white" type="submit">Search</button>
                                                 </div>
                                         </div>
-                                  </form>
+                                    </form>
                                 </div>
                                 </div>
                                 </div>
@@ -63,35 +63,33 @@
                                         <thead>
                                             <tr style="text-transform: uppercase;font-weight:bold;font-family: Times New Roman, Times, serif;">
                                                 <th>#</th>
-                                                <th>Client</th> 
-                                                <th>Number Plate</th>
-                                                <th>Stage</th>
-                                                <th>Stage Leader</th>
-                                                <th>Stage Leader Contact</th>
-                                                <th>Amount Paid</th> 
-                                                <th>Paid On</th>
-                                                <th>Status</th>
+                                                <th>First Name</th> 
+                                                <th>Other Names</th> 
+                                                <th>Telephone</th> 
+                                                <th>Number Plate</th> 
+                                                <th>Amount</th> 
+                                                <th>Option</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                           @foreach($get_all_todays_payments as $i =>$fuel_station)
+                                           @foreach($daily_revenue as $i =>$riders)
                                             <tr>
                                             @php
-                                                if( $get_all_todays_payments->currentPage() == 1){
+                                                if( $daily_revenue->currentPage() == 1){
                                                     $i = $i+1;
                                                 }else{
-                                                    $i = ($i+1) + 10*($get_all_todays_payments->currentPage()-1);
+                                                    $i = ($i+1) + 10*($daily_revenue->currentPage()-1);
                                                 }
                                             @endphp
                                             <th scope="row">{{$i}}</th> 
-                                               <td>{{$fuel_station->other_names}} {{$fuel_station->first_name}}</td> 
-                                                <td>{{$fuel_station->number_plate}}</td> 
-                                                <td>{{$fuel_station->stage_name}}</td>
-                                                <td>{{$fuel_station->stage_leader}}</td>
-                                                <td>{{$fuel_station->stage_leader_contact}}</td>
-                                                <td>{{number_format($fuel_station->amount_paid)}} /=</td> 
-                                                <td>{{$fuel_station->created_at}}</td> 
-                                                <td>{{$fuel_station->status}}</td> 
+                                                <td>{{$riders->other_names}}</td> 
+                                                <td>{{$riders->first_name}}</td> 
+                                                <td>{{$riders->telephone}}</td> 
+                                                <td>{{$riders->number_plate}}</td> 
+                                                <td>{{ number_format($riders->charge)}} /=</td> 
+                                                <td>
+                                                    <a href="/clientmodule/view-more/{{$riders->id}}" class="btn btn-info btn-sm waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="View More Information">View</a>
+                                                </td>
                                             </tr>
                                             @endforeach
                                         </tbody>
@@ -99,7 +97,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="text-end ml-2">
-                                        {{$get_all_todays_payments->links()}}
+                                        {{$daily_revenue->links()}}
                                     </div>
                                 </div>
                             </div>

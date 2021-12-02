@@ -128,6 +128,7 @@ class FuelStationController extends Controller
             $charge =$current_debt * 0.1;
             $save_charge =new Charge;
             $save_charge->charge   =$charge;
+            $save_charge ->days=$days_from_now;
             $save_charge->client_id =request()->client_id;
             $save_charge->fuel_station_id =Auth::user()->id;
             $save_charge->save();

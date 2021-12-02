@@ -42,7 +42,7 @@
                                 <div class="card-title">
                                 <div class="row">
                                 <div class="col-lg-4">
-                                   A table showing {{request()->route()->getName()}}
+                                   Total amount of Overdue= <u>shs. {{number_format($overdue_amount)}}</u>
                                 </div>
                                 <div class="col-lg-4 mb-2">
                                 </div>
@@ -89,7 +89,7 @@
                                                 <td>{{$riders->telephone}}</td> 
                                                 <td>{{$riders->number_plate}}</td> 
                                                 <td>{{$riders->stage_name}}</td> 
-                                                <td>{{$riders->debt}}</td><td></td>
+                                                <td>shs.{{ number_format($riders->charge)}}</td><td></td>
                                                 {{--<td>{{\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse($riders->days))}}</td>--}}
                                                 <td>
                                                     <a href="/clientmodule/view-more/{{$riders->id}}" class="btn btn-info btn-sm waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="View More Information">View</a>

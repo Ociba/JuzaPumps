@@ -41,25 +41,34 @@
                             <div class="card-body">
                                 <div class="card-title">
                                 <div class="row">
-                                <div class="col-lg-4">
-                                   A table showing {{request()->route()->getName()}}
-                                </div>
-                                <div class="col-lg-4 mb-2">
-                                </div>
-                                <div class=" col-lg-4">
-                                   <form action="/clientmodule/search-client" method="get">
-                                        <div class="input-group mb-3">
-                                                <input type="text" class="form-control" name="number_plate" placeholder="Search Number Plate" aria-label="" aria-describedby="basic-addon1">
-                                                <div class="input-group-append">
-                                                    <button class="btn btn-info btn-lg text-white" type="submit">Search</button>
+                                <form action="/clientmodule/search-by-data-range" method="get">
+                                        <div class="row">
+                                        <div class=" col-lg-5">
+                                            <div class="example mb-2">
+                                                <div class="input-group">
+                                                <label>From</label>
+                                                    <input type="date" class="form-control mydatepicker" name="from_date" placeholder="mm/dd/yyyy">
                                                 </div>
-                                        </div>
-                                  </form>
+                                            </div>
+                                       </div>
+                                       <div class=" col-lg-5">
+                                            <div class="example mb-2">
+                                                <div class="input-group">
+                                                    <label>To</label>
+                                                    <input type="date" class="form-control mydatepicker" name="to_date" placeholder="mm/dd/yyyy">
+                                                </div>
+                                            </div>
+                                       </div>
+                                       <div class=" col-lg-2">
+                                            <div class="example">
+                                                        <div class="input-group-append">
+                                                    <button class="btn btn-info btn-sm form-control text-white" type="submit">Search</button>
+                                                </div>
+                                            </div>
+                                       </div>
+                                    </div>
+                                    </form>
                                 </div>
-                                </div>
-                                </div>
-                                <div class="row mb-2">
-                                   <span style="color:blue; font-weight:bold; ">The total debts Today :shs. {{ number_format($total_debt_today)}} /=</span>
                                 </div>
                                 <div class="table-responsive">
                                     <table class="table table-bordered">
@@ -73,28 +82,30 @@
                                                 <th>Stage Leader Contact</th>
                                                 <th>Debts</th> 
                                                 <th>Days Left</th>
+                                                <th>Created at</th>
                                                 <th>Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                           @foreach($get_all_todays_debts as $i =>$fuel_station)
+                                           @foreach($get_all_transactions as $i =>$debts)
                                             <tr>
                                             @php
-                                                if( $get_all_todays_debts->currentPage() == 1){
+                                                if( $get_all_transactions->currentPage() == 1){
                                                     $i = $i+1;
                                                 }else{
-                                                    $i = ($i+1) + 10*($get_all_todays_debts->currentPage()-1);
+                                                    $i = ($i+1) + 10*($get_all_transactions->currentPage()-1);
                                                 }
                                             @endphp
                                             <th scope="row">{{$i}}</th> 
-                                                <td>{{$fuel_station->other_names}} {{$fuel_station->first_name}}</td> 
-                                                <td>{{$fuel_station->number_plate}}</td> 
-                                                <td>{{$fuel_station->stage_name}}</td>
-                                                <td>{{$fuel_station->stage_leader}}</td>
-                                                <td>{{$fuel_station->stage_leader_contact}}</td>
-                                                <td>shs. {{number_format($fuel_station->debt + $fuel_station->debt * 0.1)}}</td> 
-                                                <td>{{\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse($fuel_station->days))}}</td> 
-                                                <td>{{$fuel_station->status}}</td> 
+                                                <td>{{$debts->other_names}} {{$debts->first_name}}</td> 
+                                                <td>{{$debts->number_plate}}</td> 
+                                                <td>{{$debts->stage_name}}</td>
+                                                <td>{{$debts->stage_leader}}</td>
+                                                <td>{{$debts->stage_leader_contact}}</td>
+                                                <td>shs. {{number_format($debts->debt + $debts->debt * 0.1)}}</td> 
+                                                <td>{{\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse($debts->days))}}</td> 
+                                                <td>{{$debts->created_at}}</td>
+                                                <td>{{$debts->status}}</td>
                                             </tr>
                                             @endforeach
                                         </tbody>
@@ -102,7 +113,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="text-end ml-2">
-                                        {{$get_all_todays_debts->links()}}
+                                        {{$get_all_transactions->links()}}
                                     </div>
                                 </div>
                             </div>
