@@ -46,4 +46,8 @@ Route::prefix('adminmodule')->group(function() {
     Route::get('/date-range-transaction','TransactionController@dateRange')->name('Date Range Transaction');
     Route::get('/search-date-range-transaction','TransactionController@searchByDate')->name('Date Range Transaction');
     
+    Route::get('/specific-report','ReportController@ReportSpecificDate')->name('Specific Date Report');
+    Route::get('/search-report','ReportController@searchReportSpecificDate')->name('Searched Specific Date Report');
+    Route::get('/date-range-report','ReportController@reportDateRange')->name('Date Range Report');
+    Route::get('/search-date-range-report','ReportController@searchReportByDate')->name('Date Range Report');
 });
