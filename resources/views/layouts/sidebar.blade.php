@@ -19,11 +19,11 @@
                         <li> <a class="waves-effect waves-dark" href="/adminmodule/trashed-riders"><span class="hide-menu"> Trashed Clients</span></a>
                         </li>
                         
-                     </ul>
-                 </li>
-                 <li> <a class="waves-effect waves-dark" href="/adminmodule/fuel-stations"><i class="ti-spray"></i><span class="hide-menu"> Fuel Stations</span></a>
-                 </li>
-                 <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-book"></i><span class="hide-menu"> Transactions</span></a>
+                    </ul>
+                    </li>
+                    <li> <a class="waves-effect waves-dark" href="/adminmodule/fuel-stations"><i class="ti-spray"></i><span class="hide-menu"> Fuel Stations</span></a>
+                    </li>
+                    <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-book"></i><span class="hide-menu"> Transactions</span></a>
                     <ul aria-expanded="false" class="collapse">
                         <li> <a class="waves-effect waves-dark" href="/adminmodule/get-todays-debt"><span class="hide-menu"> Todays Debts</span></a></li>
                         <li> <a class="waves-effect waves-dark" href="/adminmodule/get-todays-payments"><span class="hide-menu"> Todays Payments</span></a></li>
@@ -41,8 +41,9 @@
                         </li>
                         <li> <a class="waves-effect waves-dark" href="/adminmodule/pending-debts"><span class="hide-menu"> Pending Revenue</span></a>
                         </li>
-                        <li> <a class="waves-effect waves-dark" href="/adminmodule/overdue"><span class="hide-menu"> Overdue Debts</span></a>
-                        </li>
+                        <li> <a class="waves-effect waves-dark" href="/adminmodule/overdue"><span class="hide-menu"> Overdue Debts</span></a></li>
+                        <li> <a class="waves-effect waves-dark" href="/adminmodule/specific-transaction"><span class="hide-menu"> specific Date</span></a></li>
+                        <li> <a class="waves-effect waves-dark" href="/adminmodule/date-range-transaction"><span class="hide-menu"> Date Range</span></a></li>
                     </ul>
                 </li>
                 <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-view-grid"></i><span class="hide-menu"> Towns</span></a>
