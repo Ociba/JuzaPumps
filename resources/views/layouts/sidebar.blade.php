@@ -29,6 +29,8 @@
                         <li> <a class="waves-effect waves-dark" href="/adminmodule/get-todays-payments"><span class="hide-menu"> Todays Payments</span></a></li>
                         <li> <a class="waves-effect waves-dark" href="/adminmodule/all-debts"><span class="hide-menu"> All Debts</span></a></li>
                         <li> <a class="waves-effect waves-dark" href="/adminmodule/all-payments"><span class="hide-menu"> All Payments</span></a></li>
+                        <li> <a class="waves-effect waves-dark" href="/adminmodule/specific-transaction"><span class="hide-menu"> specific Date</span></a></li>
+                        <li> <a class="waves-effect waves-dark" href="/adminmodule/date-range-transaction"><span class="hide-menu"> Date Range</span></a></li>
                     </ul>
                 </li>
                 <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-move"></i><span class="hide-menu"> Reports</span></a>

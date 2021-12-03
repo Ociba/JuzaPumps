@@ -40,5 +40,10 @@ Route::prefix('adminmodule')->group(function() {
     Route::get('/get-towns-with-revenue','AdminModuleController@getFuelStationsRevenue')->name('Towns');
     Route::get('/view-town-revenue/{fuel_station_id}','AdminModuleController@revenueCalculationsPerTown')->name('Revenue Per Town');
     Route::get('/search-by-data-range','ReportController@searchByDate')->name('Revenue');
+
+    Route::get('/specific-transaction','TransactionController@specificDate')->name('Specific Date Transaction');
+    Route::get('/search-transaction','TransactionController@searchSpecificDate')->name('Searched Specific Date Transaction');
+    Route::get('/date-range-transaction','TransactionController@dateRange')->name('Date Range Transaction');
+    Route::get('/search-date-range-transaction','TransactionController@searchByDate')->name('Date Range Transaction');
     
 });

@@ -77,6 +77,7 @@ class AdminModuleController extends Controller
     */
     protected function initialDeposits(){
         $get_all_initial_deposits_per_station =InitialFloat::join('users','initial_floats.fuel_station_id','users.id')
+        ->select('users.name','initial_floats.*')
         ->simplePaginate(10);
         return view('adminmodule::initial_deposit', compact('get_all_initial_deposits_per_station'));
     }
