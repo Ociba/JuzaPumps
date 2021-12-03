@@ -79,7 +79,8 @@
                                         <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="form-label">Town of Operation</label>
-                                                    <select class="form-control form-select" name="town_id" id="town_id" required>
+                                                    <select class="form-control form-select" name="town_id" id="town_id">
+                                                        <option value=""></option>
                                                     @foreach($get_town as $towns)
                                                     <option value="{{$towns->id}}">{{$towns->town}}</option>
                                                     @endforeach

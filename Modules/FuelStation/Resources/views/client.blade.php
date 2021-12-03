@@ -124,20 +124,23 @@
                             </div>
                         </div>
                         @php
-                            $float = \DB::table('initial_floats')->where('fuel_station_id',auth()->user()->id)->value('float');
+                            $float = \DB::table('initial_floats')->where('fuel_station_id',auth()->user()->id)->sum('float');
                             $debts_given_out = \DB::table('fuel_stations')->where('user_id',auth()->user()->id)->where('status','pending')->sum('debt');
                             $amount_paid = \DB::table('charges')->where('fuel_station_id',auth()->user()->id)->where('status','paid')->sum('charge');
                         @endphp
                         <div class="row">
                             <div class="col-lg-2"></div>
                             <div class="col-lg-1"></div>
-                            <div class="col-lg-6 bg-success text-center">
-                                <span class="text-white">Float: <b>{{number_format(($float - $debts_given_out) + $amount_paid )}}/=</b></span>
+                            <div class="col-lg-3 bg-success text-center">
+                                <span class="text-white">Float: <b>{{number_format(($float - $debts_given_out) )}}/=</b></span>
+                            </div><br>
+                            <div class="col-lg-3 bg-success text-center">
+                                <span class="text-white">Revenue: <b>{{number_format(($amount_paid) )}}/=</b></span>
                             </div><br>
                             <div class="col-lg-2"></div>
                         </div><br>
-                         <!-- Row -->
-                         <div class="row">
+                        <!-- Row -->
+                        <div class="row">
                             <div class="col-md-6">
                                 <div class="card text-center">
                                     <div class="card-body">

@@ -25,6 +25,8 @@ Route::group(['prefix'=>'clientmodule', 'middleware'=>['auth']],function(){
     Route::get('/search-client','ClientModuleController@searchClient')->name('Searched Client');
     Route::get('/search-todays-client','ClientModuleController@searchTodaysClient')->name('Searched Client');
     Route::get('/search-trashed-client','ClientModuleController@searchTrashedClient')->name('Searched Client');
+    Route::get('/edit-revenue/{charge_id}','ClientModuleController@editClientRevenue')->name('Edit Revenue');
+    Route::get('/edit-revenue-form/{charge_id}','ClientModuleController@editClientRevenueForm')->name('Edit Revenue');
 
     Route::get('/get-todays-transactions','TransactionController@todaysTransactions')->name('Todays Transactions');
     Route::get('/daily-transactions','TransactionController@dailyTransactions')->name('Daily Transactions');

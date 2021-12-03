@@ -47,8 +47,8 @@
                                 <div class="card-body">
                                 <form action="/fuelstation/fuel-client-now/{{request()->route()->client_id}}" method="get">
                                     <p class="card-tex">
-                                         <input type="hidden" name="fuel_station_id" value="{{auth()->user()->id}}">
-                                         <input type="hidden" name="client_id" value="{{request()->route()->client_id}}">
+                                        <input type="hidden" name="fuel_station_id" value="{{auth()->user()->id}}">
+                                        <input type="hidden" name="client_id" value="{{request()->route()->client_id}}">
                                         <label>Amount</label>
                                         <input type="text" class="form-control" name="debt" placeholder="Amount" required>
                                     </p>
@@ -57,13 +57,13 @@
                                         <input type="text" class="form-control" name="pin" placeholder="e.g 12345" required>
                                     </p>
                                     <div class="text-center">
-                                      <button type="submit" class="btn text-white" style="background-color:#000066;">Fuel Now</button>
+                                        <button type="submit" class="btn text-white" style="background-color:#000066;">Fuel Now</button>
                                     {{--<button class="btn btn-sm btn-danger deleteDW" dw-id="" data-toggle="modal" data-target="#deleteDomesticWorker">Delete</button>--}}
                                     </div>
                                 </form>
                                 </div>
                             </div>
-                             </div>
+                            </div>
                             <div class="col-lg-4"></div>
                         </div>
                     </div>

@@ -38,8 +38,14 @@ class FuelStationController extends Controller
 
         $client_id = \DB::table('clients')->where('number_plate',$number_plate)->value('id');
         $charge = \DB::table('charges')->where('client_id',$client_id)->where('fuel_station_id',auth()->user()->id)->where('status','pending')->value('charge');
-        $debt = \DB::table('fuel_stations')->where('client_id',$client_id)->where('status','pending')->sum('debt') + $charge- \DB::table('fuel_stations')->where('client_id',$client_id)->where('status','pending')->sum('amount_paid');
         
+        if(\DB::table('clients')->where('id',$client_id)->where('is_chairman',0)->exists()){
+            $debt_to_pay = $charge - \DB::table('fuel_stations')->where('client_id',$client_id)->where('status','pending')->sum('amount_paid');
+        }else{
+            $debt_to_pay = 0;
+        }
+        $debt = \DB::table('fuel_stations')->where('client_id',$client_id)->where('status','pending')->sum('debt') + $debt_to_pay;
+
         $get_client_information = Client::join('regions','clients.region_id','regions.id')
             ->join('towns','clients.town_id','towns.id')->Where('number_plate', 'like', '%'. $number_plate. '%')
             ->select('clients.*','regions.region','towns.town')->get();
@@ -125,7 +131,11 @@ class FuelStationController extends Controller
             
            //This saves to charges
             $current_debt = request()->debt;
-            $charge =$current_debt * 0.1;
+            if(Client::where('id',request()->client_id)->where('is_chairman',1)->exists()){
+                $charge =$current_debt;
+            }else{
+                $charge = $current_debt * 0.1;
+            }
             $save_charge =new Charge;
             $save_charge->charge   =$charge;
             $save_charge ->days=$days_from_now;

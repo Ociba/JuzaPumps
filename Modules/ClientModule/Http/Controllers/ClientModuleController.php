@@ -10,6 +10,7 @@ use Modules\ClientModule\Http\Requests\UserFormRequest;
 use Modules\ClientModule\Entities\Client;
 use Modules\ClientModule\Entities\Region;
 use Modules\TransactionModule\Entities\Payment;
+use Modules\FuelStation\Entities\Charge;
 use DB;
 use Auth;
 use Carbon\Carbon;
@@ -72,6 +73,11 @@ class ClientModuleController extends Controller
     private function createClientsInformation(){
         $now = Carbon::now();
         $days_from_now = $now->addDays(30);
+        if(!empty(request()->is_chairman)){
+            $is_chairman = 1;
+        }else{
+            $is_chairman = 0;
+        }
 
         $client_photo = request()->profile_photo_path;
         $client_photo_original_name = $client_photo->getClientOriginalName();
@@ -94,11 +100,32 @@ class ClientModuleController extends Controller
         $client_obj ->days                    =$days_from_now;
         $client_obj ->profile_photo_path      =$client_photo_original_name;
         $client_obj ->user_id                 =Auth::user()->id;
+        $client_obj ->is_chairman               = $is_chairman;
         $client_obj ->save();
         
         //$this->createPropertyOwnerAccount();
         return redirect()->back()->with('msg','operation successful');
     }
+
+    //edit revenue form
+    public function editClientRevenueForm($charge_id){
+        $revenue_generated = Charge::where('id',$charge_id)->value('charge');
+        return view('clientmodule::edit_revenue',compact('charge_id','revenue_generated'));
+    }
+
+    //this function edits the clients module
+    public function editClientRevenue($charge_id){
+        $client_id = Charge::where('id',$charge_id)->value('client_id');
+        $fuel_station_id = Charge::where('id',$charge_id)->value('fuel_station_id');
+        $new_revenue = new Charge;
+        $new_revenue->client_id         = $client_id;
+        $new_revenue->fuel_station_id   = $fuel_station_id;
+        $new_revenue->charge            = request()->charge;
+        $new_revenue->status             = 'paid';
+        $new_revenue->save();
+        return redirect()->back()->with('msg','operation successful');
+    }
+    
     /**
      * This function creates new rider in a particular stage
      */

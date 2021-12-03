@@ -41,7 +41,7 @@
                             <div class="card-body">
                             <div class="row">
                                 <form action="/clientmodule/save-rider/{{request()->route()->client_id}}" method="post" enctype="multipart/form-data">
-                                 @csrf
+                                @csrf
                                     <div class="form-body">
                                         <div class="row p-t-20">
                                             <div class="col-md-6">
@@ -153,10 +153,10 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                               <div class="form-group">
+                                                <div class="form-group">
                                                     <label class="form-label">Leader</label>
                                                     <div class="custom-control custom-radio">
-                                                        <input type="checkbox" id="leader" name="leader" id="leader" value="leader" class="form-check-input">
+                                                        <input type="checkbox" id="leader" name="is_chairman" id="leader" value="leader" class="form-check-input">
                                                         <label class="form-check-label" for="leader">Tick if a person is chairman</label>
                                                     </div>
                                                 </div>

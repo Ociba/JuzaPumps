@@ -42,13 +42,13 @@
                                 <div class="card-title">
                                 <div class="row">
                                 <div class="col-lg-6">
-                                   A table showing {{request()->route()->getName()}}<br>
-                                   <span style="color:blue;"> Total Amount Collected Today : {{ number_format($amount_paid_today)}} /=</span>
+                                    A table showing {{request()->route()->getName()}}<br>
+                                <span style="color:blue;"> Total Revenue Collected Today : {{ number_format($amount_paid_today)}} /=</span>
                                 </div>
                                 <div class="col-lg-2 mb-2">
                                 </div>
                                 <div class=" col-lg-4">
-                                   <form action="/reportmodule/search-todays-revenue" method="get">
+                                    <form action="/reportmodule/search-todays-revenue" method="get">
                                         <div class="input-group mb-3">
                                                 <input type="text" class="form-control" name="number_plate" placeholder="Search Number Plate" aria-label="" aria-describedby="basic-addon1">
                                                 <div class="input-group-append">
@@ -68,12 +68,12 @@
                                                 <th>Other Names</th> 
                                                 <th>Telephone</th> 
                                                 <th>Number Plate</th> 
-                                                <th>Amount Paid</th> 
+                                                <th>Revenue Collected</th> 
                                                 <th>Option</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                           @foreach($get_todays_revenue as $i =>$riders)
+                                            @foreach($get_todays_revenue as $i =>$riders)
                                             <tr>
                                             @php
                                                 if( $get_todays_revenue->currentPage() == 1){
@@ -87,9 +87,10 @@
                                                 <td>{{$riders->first_name}}</td> 
                                                 <td>{{$riders->telephone}}</td> 
                                                 <td>{{$riders->number_plate}}</td> 
-                                                <td>{{ number_format($riders->amount_paid)}} /=</td> 
+                                                <td>{{ number_format($riders->charge)}} /=</td> 
                                                 <td>
                                                     <a href="/clientmodule/view-more/{{$riders->id}}" class="btn btn-info btn-sm waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="View More Information">View</a>
+                                                    <a href="/clientmodule/edit-revenue-form/{{$riders->id}}" class="btn btn-secondary btn-sm waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="View More Information">edit</a>
                                                 </td>
                                             </tr>
                                             @endforeach

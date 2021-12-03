@@ -43,7 +43,7 @@
                                 <div class="col-lg-3"></div>
                                 <div class="col-lg-6">
                                 <form action="/adminmodule/deposit/{{request()->route()->user_id}}" method="get">
-                                 @csrf
+                                @csrf
                                 <div class="row">
                                     <div class="col-md-12 ">
                                         <div class="form-group">
@@ -62,7 +62,7 @@
                                 </div>
                                 <div class="col-lg-3"></div>
                             </div>
-                           </div>
+                            </div>
                         </div>
                     </div>
                 </div>

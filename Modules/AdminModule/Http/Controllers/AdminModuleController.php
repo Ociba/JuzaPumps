@@ -200,14 +200,13 @@ class AdminModuleController extends Controller
      */
     public function todayRevenue()
     {
-        $get_todays_revenue =DB::table('fuel_stations')->join('users','fuel_stations.user_id','users.id')
-        ->join('clients','fuel_stations.client_id','clients.id')
-        ->where('fuel_stations.created_at','>=',Carbon::today())
-        ->whereNotnull('fuel_stations.amount_paid')
-        ->select('clients.*','fuel_stations.amount_paid')
+        $get_todays_revenue =DB::table('charges')
+        ->join('users','users.id','charges.fuel_station_id')
+        ->join('clients','clients.id','charges.client_id')
+        ->select('charges.*','clients.first_name','clients.other_names','clients.telephone','clients.number_plate')
         ->simplePaginate(10);
         //get sum of money collected today
-        $amount_paid_today= DB::table('fuel_stations')->where('created_at','>=',Carbon::today())->sum('amount_paid');
+        $amount_paid_today= DB::table('charges')->where('created_at','>=',Carbon::today())->sum('charge');
         return view('adminmodule::todays_revenue', compact('get_todays_revenue','amount_paid_today'));
     }
     /** 

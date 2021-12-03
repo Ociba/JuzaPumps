@@ -35,37 +35,31 @@
                 <!-- End Bread crumb and right sidebar toggle -->
                 <!-- .content -->
                 <div class="row">
-                    @include('layouts.messages')
                     <div class="col-lg-12">
-                        <div class="row mt-5">
-                            <div class="col-lg-4"></div>
-                            <div class="col-lg-4">
-                            <div class="card">
-                                <div class="card-header bg-indigo text-white  text-center" style="background-color:#000066;">
-                                    @php
-                                        $amount = \DB::table('fuel_stations')->where('client_id',request()->route()->client_id)->where('status','pending')->value('debt');
-                                        if(\DB::table('clients')->where('id',request()->client_id)->where('is_chairman',1)->exists()){
-                                            $to_pay = $amount;
-                                        }else{
-                                            $to_pay = $amount + 0.1*$amount;
-                                        }
-                                    @endphp
-                                <h4>Debt Ugshs: {{ $to_pay}}</h4>
-                                </div>
-                                <div class="card-body">
-                                <form action="/fuelstation/pay-debt/{{request()->route()->client_id}}" method="get">
-                                    <p class="card-tex">
-                                         <input type="hidden" name="fuel_station_id" value="{{auth()->user()->id}}">
-                                         <input type="hidden" name="client_id" value="{{request()->route()->client_id}}">
-                                        <label>Amount</label>
-                                        <input type="text" class="form-control" name="amount_paid" placeholder="Amount" value="{{$to_pay}}" readonly>
-                                    </p>
-                                    <button type="submit" class="btn text-white" style="background-color:#000066;">Pay Debt Now</button>
+                    @include('layouts.messages')
+                    <div class="card">
+                            <div class="card-body">
+                            <div class="row">
+                                <form action="/clientmodule/edit-revenue/{{$charge_id}}" method="get">
+                                @csrf
+                                    <div class="form-body">
+                                        <div class="row p-t-20">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label">Revenue Generated</label>
+                                                    <input type="text" id="first_name" name="charge" value="{{$revenue_generated}}" class="form-control" placeholder="">
+                                                    </div>
+                                            </div>
+                                            <!--/span-->
+                                        </div>
+                                    </div>
+                                    <div class="form-actions text-center">
+                                        <button type="submit" class="btn btn-success text-white"> Save</button>
+                                        <a href="/adminmodule/todays-revenue" type="button" class="btn btn-primary">Back</a>
+                                    </div>
                                 </form>
                                 </div>
                             </div>
-                             </div>
-                            <div class="col-lg-4"></div>
                         </div>
                     </div>
                 </div>
