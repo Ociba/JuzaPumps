@@ -17,9 +17,9 @@ class DashboardController extends Controller
         ->where('clients.user_id','=',3)
         ->where('clients.deleted_at',null)
         ->select('clients.*','towns.town')->get();
-        if(in_array('Can view admin sidebar', auth()->user()->getUserPermisions())){
+        if(auth()->user()->category =='admin'){
          return view('admin.dashboard', compact('get_users_town'));
-        }elseif(in_array('Can View field staff sidebar', auth()->user()->getUserPermisions())){
+        }elseif(auth()->user()->category =='staff'){
             return redirect('/clientmodule/');
         }else{
             return redirect('/fuelstation/search-client/');

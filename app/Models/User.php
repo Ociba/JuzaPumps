@@ -139,19 +139,19 @@ class User extends Authenticatable
      */
     public function getThisCurrentWeekRevenue(){
         Carbon::setWeekStartsAt(Carbon::SUNDAY);
-        return DB::table('charges')->whereBetween('created_at', [Carbon::now()->startOfWeek(),Carbon::now()->endOfWeek()])->sum('charge');
+        return DB::table('charges')->whereBetween('created_at', [Carbon::now()->startOfWeek(),Carbon::now()->endOfWeek()])->where('status','paid')->sum('charge');
     }
     /** 
      * This function gets amount paid this month
     */
     public function getThisCurrentMonthRevenue(){
-        return DB::table('charges')->whereMonth('created_at', Carbon::now()->month)->sum('charge');
+        return DB::table('charges')->whereMonth('created_at', Carbon::now()->month)->where('status','paid')->sum('charge');
     }
     /** 
      * This function gets current amount paid this year
     */
     public function getThisYearsRevenue(){
-        return DB::table('charges')->whereYear('created_at', date('Y'))->sum('charge');
+        return DB::table('charges')->whereYear('created_at', date('Y'))->where('status','paid')->sum('charge');
     }
     public function getEnforcement(){
         //day of creation is created at after 11 days

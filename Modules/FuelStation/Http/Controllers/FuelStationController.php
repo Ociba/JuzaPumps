@@ -57,7 +57,7 @@ class FuelStationController extends Controller
         ->where('clients.number_plate','number_plate')
         ->select('clients.*','regions.region','towns.town')->get();
         
-        return view('fuelstation::client',compact('get_client'));
+        return view('fuelstation::client',compact('get_client_information'));
     }
      /** 
      * This function gets form for fueling client
