@@ -42,8 +42,8 @@
                         <li> <a class="waves-effect waves-dark" href="/adminmodule/pending-debts"><span class="hide-menu"> Pending Revenue</span></a>
                         </li>
                         <li> <a class="waves-effect waves-dark" href="/adminmodule/overdue"><span class="hide-menu"> Overdue Debts</span></a></li>
-                        <li> <a class="waves-effect waves-dark" href="/adminmodule/specific-transaction"><span class="hide-menu"> specific Date</span></a></li>
-                        <li> <a class="waves-effect waves-dark" href="/adminmodule/date-range-transaction"><span class="hide-menu"> Date Range</span></a></li>
+                        <li> <a class="waves-effect waves-dark" href="/adminmodule/specific-report"><span class="hide-menu"> specific Date</span></a></li>
+                        <li> <a class="waves-effect waves-dark" href="/adminmodule/date-range-report"><span class="hide-menu"> Date Range</span></a></li>
                     </ul>
                 </li>
                 <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-view-grid"></i><span class="hide-menu"> Towns</span></a>

@@ -24,63 +24,46 @@ class ReportController extends Controller
         return view('adminmodule::revenue',compact('get_all_client_payments','get_total_revenue_collected'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
+     /**
+     * Display all transactions.
      */
-    public function create()
+    public function ReportSpecificDate()
     {
-        return view('adminmodule::create');
+        $get_transaction =DB::table('charges')->join('users','charges.fuel_station_id','users.id')
+        ->join('clients','charges.client_id','clients.id')
+        ->select('users.name','clients.*','charges.*','charges.created_at')->simplePaginate(10);
+        return view('adminmodule::specific_date_report', compact('get_transaction'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
-    {
-        //
+    /** 
+     * This function searches by specific date
+    */
+    protected function searchReportSpecificDate(){
+        $get_transaction =DB::table('charges')->join('users','charges.fuel_station_id','users.id')
+        ->join('clients','charges.client_id','clients.id')
+        ->whereDate('charges.created_at',request()->created_at)
+        ->select('users.name','clients.*','charges.*','charges.created_at')->simplePaginate(10);
+        return view('adminmodule::specific_date_report', compact('get_transaction'));
     }
-
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
+    /** 
+     * This function gets all transactions search by date range
+    */
+    public function reportDateRange()
     {
-        return view('adminmodule::show');
+        $get_transaction =DB::table('charges')->join('users','charges.fuel_station_id','users.id')
+        ->join('clients','charges.client_id','clients.id')
+        ->select('users.name','clients.*','charges.*','charges.created_at')->simplePaginate(10);
+        return view('adminmodule::date_range_report', compact('get_transaction'));
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
+      /** 
+     * This function search transaction basing on the days
+    */
+    public function searchReportByDate()
     {
-        return view('adminmodule::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
-    {
-        //
-    }
+        $get_transaction=DB::table('charges')->join('users','charges.fuel_station_id','users.id')
+        ->join('clients','charges.client_id','clients.id')
+        ->whereBetween('charges.created_at', [request()->from_date, request()->to_date])
+        ->select('users.name','clients.*','charges.*','charges.created_at')->simplePaginate(10);
+        return view('adminmodule::date_range_report',compact('get_transaction'));
+    }    
 }
